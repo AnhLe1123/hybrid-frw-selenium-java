@@ -12,6 +12,10 @@ import java.util.List;
 import java.util.Set;
 
 public class BasePage {
+    public static BasePage getBasePageObject() {
+        return new BasePage();
+    }
+
     public void openPageUrl(WebDriver driver, String pageUrl) {
         driver.get(pageUrl);
     }
@@ -41,7 +45,7 @@ public class BasePage {
     }
 
     public Alert waitForAlertPresence(WebDriver driver) {
-        explicitWait = new WebDriverWait(driver, 30);
+        explicitWait = new WebDriverWait(driver, longTimeout);
         return explicitWait.until(ExpectedConditions.alertIsPresent());
     }
 
@@ -92,15 +96,15 @@ public class BasePage {
         driver.switchTo().window(parentID);
     }
 
-    public By getByXpath(String xpathLocator) {
+    private By getByXpath(String xpathLocator) {
         return By.xpath(xpathLocator);
     }
 
-    public WebElement getWebElement(WebDriver driver, String xpathLocator) {
+    private WebElement getWebElement(WebDriver driver, String xpathLocator) {
         return driver.findElement(getByXpath(xpathLocator));
     }
 
-    public List<WebElement> getListWebElement(WebDriver driver, String xpathLocator) {
+    private List<WebElement> getListWebElement(WebDriver driver, String xpathLocator) {
         return driver.findElements(getByXpath(xpathLocator));
     }
 
@@ -133,7 +137,7 @@ public class BasePage {
         driver.findElement(By.xpath(parentXpath)).click();
         sleepInSecond(1);
 
-        explicitWait = new WebDriverWait(driver, 30);
+        explicitWait = new WebDriverWait(driver, longTimeout);
         List<WebElement> allItems = explicitWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(getByXpath(childXpath)));
         for(WebElement item : allItems) {
             if(item.getText().trim().equals(expectedItem)) {
@@ -233,7 +237,7 @@ public class BasePage {
     }
 
     public boolean isJQueryAjaxLoadedSuccess(WebDriver driver) {
-        explicitWait = new WebDriverWait(driver, 30);
+        explicitWait = new WebDriverWait(driver, longTimeout);
         jsExecutor = (JavascriptExecutor) driver;
         ExpectedCondition<Boolean> jQueryLoad = new ExpectedCondition<Boolean>() {
             @Override
@@ -245,7 +249,7 @@ public class BasePage {
     }
 
     public boolean areJQueryAndJSLoadedSuccess(WebDriver driver) {
-        explicitWait = new WebDriverWait(driver, 30);
+        explicitWait = new WebDriverWait(driver, longTimeout);
         jsExecutor = (JavascriptExecutor) driver;
 
         ExpectedCondition<Boolean> jQueryLoad = new ExpectedCondition<Boolean>() {
@@ -285,27 +289,27 @@ public class BasePage {
     }
     
     public void waitForElementVisible(WebDriver driver, String xpathLocator) {
-        explicitWait = new WebDriverWait(driver, 30);
+        explicitWait = new WebDriverWait(driver, longTimeout);
         explicitWait.until(ExpectedConditions.visibilityOfElementLocated(getByXpath(xpathLocator)));
     }
 
     public void waitForAllElementsVisible(WebDriver driver, String xpathLocator) {
-        explicitWait = new WebDriverWait(driver, 30);
+        explicitWait = new WebDriverWait(driver, longTimeout);
         explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(getByXpath(xpathLocator)));
     }
 
     public void waitForElementInvisible(WebDriver driver, String xpathLocator) {
-        explicitWait = new WebDriverWait(driver, 30);
+        explicitWait = new WebDriverWait(driver, longTimeout);
         explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(getByXpath(xpathLocator)));
     }
 
     public void waitForAllElementsInvisible(WebDriver driver, String xpathLocator) {
-        explicitWait = new WebDriverWait(driver, 30);
+        explicitWait = new WebDriverWait(driver, longTimeout);
         explicitWait.until(ExpectedConditions.invisibilityOfAllElements(getListWebElement(driver, xpathLocator)));
     }
 
     public void waitForElementClickable(WebDriver driver, String xpathLocator) {
-        explicitWait = new WebDriverWait(driver, 30);
+        explicitWait = new WebDriverWait(driver, longTimeout);
         explicitWait.until(ExpectedConditions.elementToBeClickable(getByXpath(xpathLocator)));
     }
 
@@ -321,4 +325,5 @@ public class BasePage {
     private Actions action;
     private WebDriverWait explicitWait;
     private JavascriptExecutor jsExecutor;
+    private long longTimeout = 30;
 }
