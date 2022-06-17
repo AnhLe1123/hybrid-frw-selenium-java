@@ -2,9 +2,7 @@
 <suite name="NopCommerce" parallele="false">
     <test name="Run on FIREFOX">
         <classes>
-            <class name="com.nopcommerce.user.Level_02_Apply_BasePage_I"/>
-            <class name="com.nopcommerce.user.Level_02_Apply_BasePage_II"/>
-            <class name="com.nopcommerce.user.Level_02_Apply_BasePage_III"/>
+            <class name="com.nopcommerce.user.Level_03_Page_Object_Pattern"/>
         </classes>
     </test>
 </suite>
