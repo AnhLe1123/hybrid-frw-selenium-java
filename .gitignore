@@ -3,3 +3,6 @@
 /browserLogs/
 /regressionLogs/
 /out/
+/.classpath
+/.project
+/test-output/
