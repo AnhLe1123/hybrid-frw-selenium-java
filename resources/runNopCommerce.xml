@@ -20,4 +20,39 @@
             <class name="com.nopcommerce.user.Level_04_Multiple_Browsers"/>
         </classes>
     </test>
+
+    <test name="Run on OPERA">
+        <parameter name="browser" value="opera"/>
+        <classes>
+            <class name="com.nopcommerce.user.Level_04_Multiple_Browsers"/>
+        </classes>
+    </test>
+
+    <test name="Run on BRAVE">
+        <parameter name="browser" value="brave"/>
+        <classes>
+            <class name="com.nopcommerce.user.Level_04_Multiple_Browsers"/>
+        </classes>
+    </test>
+
+    <test name="Run on COC_COC">
+        <parameter name="browser" value="CocCoc"/>
+        <classes>
+            <class name="com.nopcommerce.user.Level_04_Multiple_Browsers"/>
+        </classes>
+    </test>
+
+    <test name="Run on H_CHROME">
+        <parameter name="browser" value="h_chrome"/>
+        <classes>
+            <class name="com.nopcommerce.user.Level_04_Multiple_Browsers"/>
+        </classes>
+    </test>
+
+    <test name="Run on H_FIREFOX">
+        <parameter name="browser" value="h_firefox"/>
+        <classes>
+            <class name="com.nopcommerce.user.Level_04_Multiple_Browsers"/>
+        </classes>
+    </test>
 </suite>
