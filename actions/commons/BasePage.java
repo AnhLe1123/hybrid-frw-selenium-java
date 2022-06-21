@@ -7,6 +7,8 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pageObjects.nopCommerce.*;
+import pageUIs.BasePageUI;
 
 import java.util.List;
 import java.util.Set;
@@ -319,6 +321,30 @@ public class BasePage {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public AddressesPageObject openAddressesPage(WebDriver driver) {
+        waitForElementClickable(driver, BasePageUI.ADDRESSES_SIDEBAR_LINK);
+        clickToElement(driver, BasePageUI.ADDRESSES_SIDEBAR_LINK);
+        return PageGeneratorManager.getAddressesPage(driver);
+    }
+
+    public OrdersPageObject openOrdersPage(WebDriver driver) {
+        waitForElementClickable(driver, BasePageUI.ORDERS_SIDEBAR_LINK);
+        clickToElement(driver, BasePageUI.ORDERS_SIDEBAR_LINK);
+        return PageGeneratorManager.getOrdersPage(driver);
+    }
+
+    public RewardPointsPageObject openRewardPointsPage(WebDriver driver) {
+        waitForElementClickable(driver, BasePageUI.REWARD_POINTS_SIDEBAR_LINK);
+        clickToElement(driver, BasePageUI.REWARD_POINTS_SIDEBAR_LINK);
+        return PageGeneratorManager.getRewardPointsPage(driver);
+    }
+
+    public CustomerInfoPageObject openCustomerInfoPage(WebDriver driver) {
+        waitForElementClickable(driver, BasePageUI.CUSTOMER_INFO_SIDEBAR_LINK);
+        clickToElement(driver, BasePageUI.CUSTOMER_INFO_SIDEBAR_LINK);
+        return PageGeneratorManager.getCustomerInfoPage(driver);
     }
 
     private Select select;
