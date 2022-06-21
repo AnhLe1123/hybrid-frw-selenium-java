@@ -7,13 +7,14 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pageFactory.nopCommerce.HomePageObject;
-import pageFactory.nopCommerce.LoginPageObject;
-import pageFactory.nopCommerce.RegisterPageObject;
+import pageObjects.nopCommerce.HomePageObject;
+import pageObjects.nopCommerce.LoginPageObject;
+import pageObjects.nopCommerce.PageGeneratorManager;
+import pageObjects.nopCommerce.RegisterPageObject;
 
 import java.util.Random;
 
-public class Level_05_Page_Factory extends BaseTest {
+public class Level_06_Page_Generator_Manager extends BaseTest {
     private WebDriver driver;
     private HomePageObject homePage;
     private LoginPageObject loginPage;
@@ -24,6 +25,7 @@ public class Level_05_Page_Factory extends BaseTest {
     @BeforeClass
     public void beforeClass(String browserName) {
         driver = getBrowserDriver(browserName);
+        homePage = PageGeneratorManager.getHomePage(driver);
         firstName = "Automation";
         lastName = "Testing";
         invalidEmail = "abc@";
@@ -33,9 +35,7 @@ public class Level_05_Page_Factory extends BaseTest {
         invalidPassword = "123";
 
         System.out.println("Pre-condition - Step 01: Click to Register link");
-        homePage = new HomePageObject(driver);
-        homePage.clickToRegisterLink();
-        registerPage = new RegisterPageObject(driver);
+        registerPage = homePage.clickToRegisterLink();
 
         System.out.println("Pre-condition - Step 02: Input to Firstname textbox with value: " + firstName);
         registerPage.inputToFirstNameTextbox(firstName);
@@ -59,15 +59,13 @@ public class Level_05_Page_Factory extends BaseTest {
         Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
 
         System.out.println("Pre-condition - Step 08: Click to Logout link");
-        registerPage.clickToLogoutLink();
-        homePage = new HomePageObject(driver);
+        homePage = registerPage.clickToLogoutLink();
     }
 
     @Test
     public void Login_01_Empty_Data() {
         System.out.println("Login_01_Empty_Data - Step 01: Click to Login link");
-        homePage.clickToLoginLink();
-        loginPage = new LoginPageObject(driver);
+        loginPage = homePage.clickToLoginLink();
 
         System.out.println("Login_01_Empty_Data - Step 02: Click to Login button");
         loginPage.clickToLoginButton();
@@ -80,7 +78,6 @@ public class Level_05_Page_Factory extends BaseTest {
     public void Login_02_Invalid_Email() {
         System.out.println("Login_02_Invalid_Email - Step 01: Click to Login link");
         loginPage.clickToLoginLink();
-        loginPage = new LoginPageObject(driver);
 
         System.out.println("Login_02_Invalid_Email - Step 02: Input to Email textbox with value: " + invalidEmail);
         loginPage.inputToEmailTextbox(invalidEmail);
@@ -96,7 +93,6 @@ public class Level_05_Page_Factory extends BaseTest {
     public void Login_03_Email_Not_Registered() {
         System.out.println("Login_03_Email_Not_Registered - Step 01: Click to Login link");
         loginPage.clickToLoginLink();
-        loginPage = new LoginPageObject(driver);
 
         System.out.println("Login_03_Email_Not_Registered - Step 02: Input to Email textbox with value: " + notFoundEmail);
         loginPage.inputToEmailTextbox(notFoundEmail);
@@ -115,7 +111,6 @@ public class Level_05_Page_Factory extends BaseTest {
     public void Login_04_Registered_Email_Without_Password() {
         System.out.println("Login_04_Registered_Email_Without_Password - Step 01: Click to Login link");
         loginPage.clickToLoginLink();
-        loginPage = new LoginPageObject(driver);
 
         System.out.println("Login_04_Registered_Email_Without_Password - Step 02: Input to Email textbox with value: " + existingEmail);
         loginPage.inputToEmailTextbox(existingEmail);
@@ -134,7 +129,6 @@ public class Level_05_Page_Factory extends BaseTest {
     public void Login_05_Registered_Email_With_Wrong_Password() {
         System.out.println("Login_05_Registered_Email_With_Wrong_Password - Step 01: Click to Login link");
         loginPage.clickToLoginLink();
-        loginPage = new LoginPageObject(driver);
 
         System.out.println("Login_05_Registered_Email_With_Wrong_Password - Step 02: Input to Email textbox with value: " + existingEmail);
         loginPage.inputToEmailTextbox(existingEmail);
@@ -153,7 +147,6 @@ public class Level_05_Page_Factory extends BaseTest {
     public void Login_06_Registered_Email_With_Valid_Password() {
         System.out.println("Login_06_Registered_Email_With_Valid_Password - Step 01: Click to Login link");
         loginPage.clickToLoginLink();
-        loginPage = new LoginPageObject(driver);
 
         System.out.println("Login_06_Registered_Email_With_Valid_Password - Step 02: Input to Email textbox with value: " + existingEmail);
         loginPage.inputToEmailTextbox(existingEmail);
@@ -162,8 +155,7 @@ public class Level_05_Page_Factory extends BaseTest {
         loginPage.inputToPasswordTextbox(validPassword);
 
         System.out.println("Login_06_Registered_Email_With_Valid_Password - Step 05: Click to Login button");
-        loginPage.clickToLoginButton();
-        homePage = new HomePageObject(driver);
+        homePage = loginPage.clickToLoginButton();
 
         System.out.println("Login_06_Registered_Email_With_Valid_Password - Step 06: Verify My Account link displayed");
         Assert.assertTrue(homePage.isMyAccountLinkDisplayed());

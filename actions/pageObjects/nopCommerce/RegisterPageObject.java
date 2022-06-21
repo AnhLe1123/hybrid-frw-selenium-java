@@ -1,4 +1,4 @@
-package pageObjects;
+package pageObjects.nopCommerce;
 
 import commons.BasePage;
 import org.openqa.selenium.WebDriver;
@@ -76,9 +76,10 @@ public class RegisterPageObject extends BasePage {
         return getWebElementText(driver, RegisterPageUI.EXISTING_EMAIL_ERROR_MESSAGE);
     }
 
-    public void clickToLogoutLink() {
+    public HomePageObject clickToLogoutLink() {
         waitForElementClickable(driver, RegisterPageUI.LOGOUT_LINK);
         clickToElement(driver, RegisterPageUI.LOGOUT_LINK);
+        return PageGeneratorManager.getHomePage(driver);
     }
 
     public void clickToRegisterLink() {
