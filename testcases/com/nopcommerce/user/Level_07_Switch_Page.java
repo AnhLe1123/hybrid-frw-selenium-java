@@ -1,32 +1,33 @@
 package com.nopcommerce.user;
 
 import commons.BaseTest;
+import commons.PageGeneratorManager;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pageObjects.nopCommerce.*;
+import pageObjects.nopCommerce.user.*;
 
 import java.util.Random;
 
 public class Level_07_Switch_Page extends BaseTest {
     private WebDriver driver;
-    private HomePageObject homePage;
-    private LoginPageObject loginPage;
-    private OrdersPageObject ordersPage;
-    private RegisterPageObject registerPage;
-    private AddressesPageObject addressesPage;
-    private RewardPointsPageObject rewardPointsPage;
-    private CustomerInfoPageObject customerInfoPage;
+    private UserHomePageObject homePage;
+    private UserLoginPageObject loginPage;
+    private UserOrdersPageObject ordersPage;
+    private UserRegisterPageObject registerPage;
+    private UserAddressesPageObject addressesPage;
+    private UserRewardPointsPageObject rewardPointsPage;
+    private UserCustomerInfoPageObject customerInfoPage;
     private String firstName, lastName, emailAddress, password;
 
     @Parameters("browser")
     @BeforeClass
     public void beforeClass(String browserName) {
         driver = getBrowserDriver(browserName);
-        homePage = PageGeneratorManager.getHomePage(driver);
+        homePage = PageGeneratorManager.getUserHomePage(driver);
         firstName = "Automation";
         lastName = "Testing";
         emailAddress = "autotest" + generateNumber() + "@mail.com";
@@ -43,7 +44,7 @@ public class Level_07_Switch_Page extends BaseTest {
         registerPage.inputToConfirmPasswordTextbox(password);
         registerPage.clickToRegisterButton();
         Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
-        homePage = registerPage.clickToLogoutLink();
+        homePage = registerPage.clickUserLogoutLink(driver);
     }
 
     @Test

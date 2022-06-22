@@ -7,25 +7,25 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pageObjects.nopCommerce.HomePageObject;
-import pageObjects.nopCommerce.LoginPageObject;
-import pageObjects.nopCommerce.PageGeneratorManager;
-import pageObjects.nopCommerce.RegisterPageObject;
+import pageObjects.nopCommerce.user.UserHomePageObject;
+import pageObjects.nopCommerce.user.UserLoginPageObject;
+import commons.PageGeneratorManager;
+import pageObjects.nopCommerce.user.UserRegisterPageObject;
 
 import java.util.Random;
 
 public class Level_06_Page_Generator_Manager extends BaseTest {
     private WebDriver driver;
-    private HomePageObject homePage;
-    private LoginPageObject loginPage;
-    private RegisterPageObject registerPage;
+    private UserHomePageObject homePage;
+    private UserLoginPageObject loginPage;
+    private UserRegisterPageObject registerPage;
     private String firstName, lastName, invalidEmail, notFoundEmail, existingEmail, validPassword, invalidPassword;
 
     @Parameters("browser")
     @BeforeClass
     public void beforeClass(String browserName) {
         driver = getBrowserDriver(browserName);
-        homePage = PageGeneratorManager.getHomePage(driver);
+        homePage = PageGeneratorManager.getUserHomePage(driver);
         firstName = "Automation";
         lastName = "Testing";
         invalidEmail = "abc@";
@@ -59,7 +59,7 @@ public class Level_06_Page_Generator_Manager extends BaseTest {
         Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
 
         System.out.println("Pre-condition - Step 08: Click to Logout link");
-        homePage = registerPage.clickToLogoutLink();
+        homePage = registerPage.clickUserLogoutLink(driver);
     }
 
     @Test

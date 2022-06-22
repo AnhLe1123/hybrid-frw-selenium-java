@@ -7,8 +7,12 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pageObjects.nopCommerce.*;
-import pageUIs.BasePageUI;
+import pageObjects.nopCommerce.admin.AdminDashboardPageObject;
+import pageObjects.nopCommerce.admin.AdminLoginPageObject;
+import pageObjects.nopCommerce.user.*;
+import pageUIs.admin.AdminBasePageUI;
+import pageUIs.user.UserBasePageUI;
+import pageUIs.user.UserRegisterPageUI;
 
 import java.util.List;
 import java.util.Set;
@@ -323,28 +327,41 @@ public class BasePage {
         }
     }
 
-    public AddressesPageObject openAddressesPage(WebDriver driver) {
-        waitForElementClickable(driver, BasePageUI.ADDRESSES_SIDEBAR_LINK);
-        clickToElement(driver, BasePageUI.ADDRESSES_SIDEBAR_LINK);
-        return PageGeneratorManager.getAddressesPage(driver);
+    public UserAddressesPageObject openAddressesPage(WebDriver driver) {
+        waitForElementClickable(driver, UserBasePageUI.ADDRESSES_SIDEBAR_LINK);
+        clickToElement(driver, UserBasePageUI.ADDRESSES_SIDEBAR_LINK);
+        return PageGeneratorManager.getUserAddressesPage(driver);
     }
 
-    public OrdersPageObject openOrdersPage(WebDriver driver) {
-        waitForElementClickable(driver, BasePageUI.ORDERS_SIDEBAR_LINK);
-        clickToElement(driver, BasePageUI.ORDERS_SIDEBAR_LINK);
-        return PageGeneratorManager.getOrdersPage(driver);
+    public UserOrdersPageObject openOrdersPage(WebDriver driver) {
+        waitForElementClickable(driver, UserBasePageUI.ORDERS_SIDEBAR_LINK);
+        clickToElement(driver, UserBasePageUI.ORDERS_SIDEBAR_LINK);
+        return PageGeneratorManager.getUserOrdersPage(driver);
     }
 
-    public RewardPointsPageObject openRewardPointsPage(WebDriver driver) {
-        waitForElementClickable(driver, BasePageUI.REWARD_POINTS_SIDEBAR_LINK);
-        clickToElement(driver, BasePageUI.REWARD_POINTS_SIDEBAR_LINK);
-        return PageGeneratorManager.getRewardPointsPage(driver);
+    public UserRewardPointsPageObject openRewardPointsPage(WebDriver driver) {
+        waitForElementClickable(driver, UserBasePageUI.REWARD_POINTS_SIDEBAR_LINK);
+        clickToElement(driver, UserBasePageUI.REWARD_POINTS_SIDEBAR_LINK);
+        return PageGeneratorManager.getUserRewardPointsPage(driver);
     }
 
-    public CustomerInfoPageObject openCustomerInfoPage(WebDriver driver) {
-        waitForElementClickable(driver, BasePageUI.CUSTOMER_INFO_SIDEBAR_LINK);
-        clickToElement(driver, BasePageUI.CUSTOMER_INFO_SIDEBAR_LINK);
-        return PageGeneratorManager.getCustomerInfoPage(driver);
+    public UserCustomerInfoPageObject openCustomerInfoPage(WebDriver driver) {
+        waitForElementClickable(driver, UserBasePageUI.CUSTOMER_INFO_SIDEBAR_LINK);
+        clickToElement(driver, UserBasePageUI.CUSTOMER_INFO_SIDEBAR_LINK);
+        return PageGeneratorManager.getUserCustomerInfoPage(driver);
+    }
+
+    public UserHomePageObject clickUserLogoutLink(WebDriver driver) {
+        waitForElementClickable(driver, UserBasePageUI.LOGOUT_LINK);
+        clickToElement(driver, UserBasePageUI.LOGOUT_LINK);
+        return PageGeneratorManager.getUserHomePage(driver);
+    }
+
+    public AdminLoginPageObject clickAdminLogoutLink(WebDriver driver) {
+        isJQueryAjaxLoadedSuccess(driver);
+        waitForElementClickable(driver, AdminBasePageUI.LOGOUT_LINK);
+        clickToElement(driver, AdminBasePageUI.LOGOUT_LINK);
+        return PageGeneratorManager.getAdminLoginPage(driver);
     }
 
     private Select select;
