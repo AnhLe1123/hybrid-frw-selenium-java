@@ -13,7 +13,6 @@ import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
     private WebDriver driver;
-    private String projectPath = System.getProperty("user.dir");
 
     protected WebDriver getBrowserDriver(String browserName) {
         if (browserName.equals("firefox")) {
@@ -35,13 +34,17 @@ public class BaseTest {
         } else if (browserName.equals("brave")) {
             WebDriverManager.chromedriver().setup();
             ChromeOptions options = new ChromeOptions();
-            options.setBinary("/Applications/Brave Browser.app/Contents/MacOS/Brave Browser");
+            if (GlobalConstants.OS_NAME.contains("Mac")) {
+                options.setBinary("/Applications/Brave Browser.app/Contents/MacOS/Brave Browser");
+            }
             driver = new ChromeDriver(options);
 
         } else if (browserName.equals("CocCoc")) {
             WebDriverManager.chromedriver().driverVersion("101.0.4951.15").setup();
             ChromeOptions options = new ChromeOptions();
-            options.setBinary("/Applications/CocCoc.app/Contents/MacOS/CocCoc");
+            if (GlobalConstants.OS_NAME.contains("Mac")) {
+                options.setBinary("/Applications/CocCoc.app/Contents/MacOS/CocCoc");
+            }
             driver = new ChromeDriver(options);
 
         } else if (browserName.equals("h_chrome")) {
@@ -89,13 +92,17 @@ public class BaseTest {
         } else if (browserName.equals("brave")) {
             WebDriverManager.chromedriver().setup();
             ChromeOptions options = new ChromeOptions();
-            options.setBinary("/Applications/Brave Browser.app/Contents/MacOS/Brave Browser");
+            if (GlobalConstants.OS_NAME.contains("Mac")) {
+                options.setBinary("/Applications/Brave Browser.app/Contents/MacOS/Brave Browser");
+            }
             driver = new ChromeDriver(options);
 
         } else if (browserName.equals("CocCoc")) {
             WebDriverManager.chromedriver().driverVersion("101.0.4951.15").setup();
             ChromeOptions options = new ChromeOptions();
-            options.setBinary("/Applications/CocCoc.app/Contents/MacOS/CocCoc");
+            if (GlobalConstants.OS_NAME.contains("Mac")) {
+                options.setBinary("/Applications/CocCoc.app/Contents/MacOS/CocCoc");
+            }
             driver = new ChromeDriver(options);
 
         } else if (browserName.equals("h_chrome")) {
@@ -116,7 +123,7 @@ public class BaseTest {
             throw new RuntimeException("Invalid browser driver");
         }
 
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(GlobalConstants.LONG_TIMEOUT, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         driver.get(getPageUrlByEnv(environmentName));
 
@@ -126,11 +133,11 @@ public class BaseTest {
     private String getPageUrlByEnv(String environmentName) {
         switch (environmentName) {
             case "DEV":
-                return "https://demo.nopcommerce.com/";
+                return GlobalConstants.DEV_USER_PAGE_URL;
             case "TESTING":
-                return "https://test.nopcommerce.com/";
+                return GlobalConstants.TESTING_USER_PAGE_URL;
             case "STAGING":
-                return "https://staging.nopcommerce.com/";
+                return GlobalConstants.STAGING_USER_PAGE_URL;
             default:
                 throw new RuntimeException("Invalid environment");
         }

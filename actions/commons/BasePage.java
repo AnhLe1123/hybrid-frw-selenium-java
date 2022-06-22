@@ -484,5 +484,5 @@ public class BasePage {
     private Actions action;
     private WebDriverWait explicitWait;
     private JavascriptExecutor jsExecutor;
-    private long longTimeout = 30;
+    private long longTimeout = GlobalConstants.LONG_TIMEOUT;
 }
