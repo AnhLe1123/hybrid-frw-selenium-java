@@ -496,6 +496,15 @@ public class BasePage {
         return PageGeneratorManager.getAdminLoginPage(driver);
     }
 
+    //LiveGuru project
+    public void clickToSubLinkByText(WebDriver driver, String linkText, String subLinkText) {
+        waitForElementClickable(driver, pageUIs.liveGuru.user.UserBasePageUI.LINK_AT_HEADER_BY_TEXT, linkText);
+        clickToElement(driver, pageUIs.liveGuru.user.UserBasePageUI.LINK_AT_HEADER_BY_TEXT, linkText);
+
+        waitForElementClickable(driver, pageUIs.liveGuru.user.UserBasePageUI.SUB_LINK_AT_HEADER_BY_TEXT, subLinkText);
+        clickToElement(driver, pageUIs.liveGuru.user.UserBasePageUI.SUB_LINK_AT_HEADER_BY_TEXT, subLinkText);
+    }
+
     private Select select;
     private Actions action;
     private WebDriverWait explicitWait;
