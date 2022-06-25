@@ -7,12 +7,10 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pageObjects.nopCommerce.admin.AdminDashboardPageObject;
 import pageObjects.nopCommerce.admin.AdminLoginPageObject;
 import pageObjects.nopCommerce.user.*;
-import pageUIs.admin.AdminBasePageUI;
-import pageUIs.user.UserBasePageUI;
-import pageUIs.user.UserRegisterPageUI;
+import pageUIs.nopCommerce.admin.AdminBasePageUI;
+import pageUIs.nopCommerce.user.UserBasePageUI;
 
 import java.util.List;
 import java.util.Set;
@@ -134,8 +132,12 @@ public class BasePage {
         return driver.findElement(getByLocator(locator));
     }
 
-    private List<WebElement> getListWebElement(WebDriver driver, String locator) {
+    public List<WebElement> getListWebElement(WebDriver driver, String locator) {
         return driver.findElements(getByLocator(locator));
+    }
+
+    public List<WebElement> getListWebElement(WebDriver driver, String locator, String... dynamicValues) {
+        return driver.findElements(getByLocator(getDynamicXpath(locator, dynamicValues)));
     }
 
     public void clickToElement(WebDriver driver, String locator) {
@@ -219,6 +221,10 @@ public class BasePage {
         return getListWebElement(driver, locator).size();
     }
 
+    public int getWebElementSize(WebDriver driver, String locator, String... dynamicValues) {
+        return getListWebElement(driver, getDynamicXpath(locator, dynamicValues)).size();
+    }
+
     public void checkToCheckboxOrRadio(WebDriver driver, String locator) {
         if (!isElementSelected(driver, locator)) {
             getWebElement(driver, locator).click();
@@ -270,6 +276,16 @@ public class BasePage {
     public void hoverToElement(WebDriver driver, String locator) {
         action = new Actions(driver);
         action.moveToElement(getWebElement(driver, locator)).perform();
+    }
+
+    public void pressKeyToElement(WebDriver driver, String locator, Keys key) {
+        action = new Actions(driver);
+        action.sendKeys(getWebElement(driver, locator), key).perform();
+    }
+
+    public void pressKeyToElement(WebDriver driver, String locator, Keys key, String... dynamicValues) {
+        action = new Actions(driver);
+        action.sendKeys(getWebElement(driver, getDynamicXpath(locator, dynamicValues)), key).perform();
     }
 
     public void scrollToBottomPage(WebDriver driver) {
@@ -478,6 +494,15 @@ public class BasePage {
         waitForElementClickable(driver, AdminBasePageUI.LOGOUT_LINK);
         clickToElement(driver, AdminBasePageUI.LOGOUT_LINK);
         return PageGeneratorManager.getAdminLoginPage(driver);
+    }
+
+    //LiveGuru project
+    public void clickToSubLinkByText(WebDriver driver, String linkText, String subLinkText) {
+        waitForElementClickable(driver, pageUIs.liveGuru.user.UserBasePageUI.LINK_AT_HEADER_BY_TEXT, linkText);
+        clickToElement(driver, pageUIs.liveGuru.user.UserBasePageUI.LINK_AT_HEADER_BY_TEXT, linkText);
+
+        waitForElementClickable(driver, pageUIs.liveGuru.user.UserBasePageUI.SUB_LINK_AT_HEADER_BY_TEXT, subLinkText);
+        clickToElement(driver, pageUIs.liveGuru.user.UserBasePageUI.SUB_LINK_AT_HEADER_BY_TEXT, subLinkText);
     }
 
     private Select select;

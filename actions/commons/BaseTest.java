@@ -72,7 +72,7 @@ public class BaseTest {
         return driver;
     }
 
-    protected WebDriver getBrowserDriver(String browserName, String environmentName) {
+    protected WebDriver getBrowserDriver(String browserName, String pageUrl) {
         if (browserName.equals("firefox")) {
             WebDriverManager.firefoxdriver().setup();
             driver = new FirefoxDriver();
@@ -125,7 +125,7 @@ public class BaseTest {
 
         driver.manage().timeouts().implicitlyWait(GlobalConstants.LONG_TIMEOUT, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-        driver.get(getPageUrlByEnv(environmentName));
+        driver.get(pageUrl);
 
         return driver;
     }

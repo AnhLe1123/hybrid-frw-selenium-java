@@ -9,6 +9,9 @@ public class GlobalConstants {
     public static final String TESTING_ADMIN_PAGE_URL = "https://admin-demo.nopcommerce.com/";
     public static final String STAGING_USER_PAGE_URL = "https://demo.nopcommerce.com/";
     public static final String STAGING_ADMIN_PAGE_URL = "https://admin-demo.nopcommerce.com/";
+    public static final String JQUERY_PAGE_URL = "https://www.jqueryscript.net/demo/jQuery-Dynamic-Data-Grid-Plugin-appendGrid/";
+    public static final String LIVEGURU_ADMIN_PAGE_URL = "http://live.techpanda.org/index.php/backendlogin";
+    public static final String LIVEGURU_USER_PAGE_URL = "http://live.techpanda.org/";
 
     public static final String PROJECT_PATH = System.getProperty("user.dir");
     public static final String OS_NAME = System.getProperty("os.name");

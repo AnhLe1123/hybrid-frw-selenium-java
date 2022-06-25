@@ -1,4 +1,4 @@
-package pageUIs.user;
+package pageUIs.nopCommerce.user;
 
 public class UserBasePageUI {
     public static final String ADDRESSES_SIDEBAR_LINK = "XPATH=//div[contains(@class, 'block-account-navigation')]//a[text()='Addresses']";

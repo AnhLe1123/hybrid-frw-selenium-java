@@ -1,4 +1,4 @@
-package pageUIs.user;
+package pageUIs.nopCommerce.user;
 
 public class UserLoginPageUI {
     public static final String LOGIN_LINK = "xpath=//a[@class='ico-login']";
