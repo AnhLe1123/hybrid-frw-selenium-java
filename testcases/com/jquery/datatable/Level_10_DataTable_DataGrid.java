@@ -1,6 +1,7 @@
 package com.jquery.datatable;
 
 import commons.BaseTest;
+import commons.GlobalConstants;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -58,6 +59,57 @@ public class Level_10_DataTable_DataGrid extends BaseTest {
     public void Table_03_Get_Table_Values() {
         homePage.refreshCurrentPage(driver);
         actualCountries = homePage.getValuesAtColumnByKey("country");
+    }
+
+    @Test
+    public void Table_04_Input_Value_To_Table() {
+        homePage.openPageUrl(driver, GlobalConstants.JQUERY_PAGE_URL);
+        homePage = PageGeneratorManager.getHomePage(driver);
+        homePage.inputToTextboxAtColumnByRow("Album", "1", "Adele 30");
+        homePage.inputToTextboxAtColumnByRow("Artist", "1", "Adele");
+        homePage.inputToTextboxAtColumnByRow("Year", "1", "2021");
+        homePage.inputToTextboxAtColumnByRow("Price", "1", "150");
+        homePage.selectDropdownAtColumnByRow("Origin", "1", "Japan");
+        homePage.checkToCheckboxAtColumnByRow("With Poster?", "1");
+        homePage.sleepInSecond(2);
+    }
+
+    @Test
+    public void Table_05_Textbox_Dropdown_Checkbox_At_Table() {
+        homePage.refreshCurrentPage(driver);
+        homePage.clickToLoadDataButton();
+        homePage.inputToTextboxAtColumnByRow("Album", "2", "Into the New World");
+        homePage.inputToTextboxAtColumnByRow("Artist", "3", "Girl generation");
+        homePage.inputToTextboxAtColumnByRow("Year", "5", "2020");
+        homePage.inputToTextboxAtColumnByRow("Price", "4", "300");
+
+        homePage.selectDropdownAtColumnByRow("Origin", "1", "Korea");
+        homePage.selectDropdownAtColumnByRow("Origin", "3", "US");
+        homePage.selectDropdownAtColumnByRow("Origin", "5", "Others");
+
+        homePage.uncheckToCheckboxAtColumnByRow("With Poster?", "1");
+        homePage.uncheckToCheckboxAtColumnByRow("With Poster?", "2");
+        homePage.uncheckToCheckboxAtColumnByRow("With Poster?", "4");
+
+        homePage.checkToCheckboxAtColumnByRow("With Poster?", "3");
+        homePage.checkToCheckboxAtColumnByRow("With Poster?", "5");
+        homePage.sleepInSecond(2);
+    }
+
+    @Test
+    public void Table_06_Click_Icons_At_Table() {
+        homePage.clickToLoadDataButton();
+        homePage.clickToIconByTitleAndRow("Remove Current Row", "1");
+        homePage.clickToIconByTitleAndRow("Insert Row Above", "1");
+        homePage.clickToIconByTitleAndRow("Move Up", "2");
+        homePage.clickToIconByTitleAndRow("Move Down", "1");
+
+        homePage.clickToIconByTitleAndRow("Remove Current Row", "5");
+        homePage.clickToIconByTitleAndRow("Remove Current Row", "4");
+        homePage.clickToIconByTitleAndRow("Remove Current Row", "3");
+        homePage.clickToIconByTitleAndRow("Remove Current Row", "2");
+        homePage.clickToIconByTitleAndRow("Remove Current Row", "1");
+        homePage.sleepInSecond(2);
     }
 
     @AfterClass

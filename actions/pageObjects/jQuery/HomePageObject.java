@@ -50,4 +50,38 @@ public class HomePageObject extends BasePage {
         }
         return valuesAtAllPages;
     }
+
+    public void inputToTextboxAtColumnByRow(String columnName, String rowIndex, String value) {
+        int columnIndex = getWebElementSize(driver, HomePageUI.ROW_INDEX_BY_NAME, columnName) + 1;
+        waitForElementVisible(driver, HomePageUI.TEXTBOX_BY_ROW_COLUMN_INDEX, rowIndex, String.valueOf(columnIndex));
+        sendkeyToElement(driver, HomePageUI.TEXTBOX_BY_ROW_COLUMN_INDEX, value, rowIndex, String.valueOf(columnIndex));
+    }
+
+    public void selectDropdownAtColumnByRow(String columnName, String rowIndex, String textValue) {
+        int columnIndex = getWebElementSize(driver, HomePageUI.ROW_INDEX_BY_NAME, columnName) + 1;
+        waitForElementVisible(driver, HomePageUI.DROPDOWN_BY_ROW_COLUMN_INDEX, rowIndex, String.valueOf(columnIndex));
+        selectItemInDefaultDropdown(driver, HomePageUI.DROPDOWN_BY_ROW_COLUMN_INDEX, textValue, rowIndex, String.valueOf(columnIndex));
+    }
+
+    public void checkToCheckboxAtColumnByRow(String columnName, String rowIndex) {
+        int columnIndex = getWebElementSize(driver, HomePageUI.ROW_INDEX_BY_NAME, columnName) + 1;
+        waitForElementClickable(driver, HomePageUI.CHECKBOX_BY_ROW_COLUMN_INDEX, rowIndex, String.valueOf(columnIndex));
+        checkToCheckboxOrRadio(driver, HomePageUI.CHECKBOX_BY_ROW_COLUMN_INDEX, rowIndex, String.valueOf(columnIndex));
+    }
+
+    public void uncheckToCheckboxAtColumnByRow(String columnName, String rowIndex) {
+        int columnIndex = getWebElementSize(driver, HomePageUI.ROW_INDEX_BY_NAME, columnName) + 1;
+        waitForElementClickable(driver, HomePageUI.CHECKBOX_BY_ROW_COLUMN_INDEX, rowIndex, String.valueOf(columnIndex));
+        uncheckToCheckbox(driver, HomePageUI.CHECKBOX_BY_ROW_COLUMN_INDEX, rowIndex, String.valueOf(columnIndex));
+    }
+
+    public void clickToLoadDataButton() {
+        waitForElementClickable(driver, HomePageUI.LOAD_DATA_BUTTON);
+        clickToElement(driver, HomePageUI.LOAD_DATA_BUTTON);
+    }
+
+    public void clickToIconByTitleAndRow(String iconTitle, String rowIndex) {
+        waitForElementClickable(driver, HomePageUI.BUTTON_AT_ROW_BY_TITLE, rowIndex, iconTitle);
+        clickToElement(driver, HomePageUI.BUTTON_AT_ROW_BY_TITLE, rowIndex, iconTitle);
+    }
 }

@@ -221,6 +221,10 @@ public class BasePage {
         return getListWebElement(driver, locator).size();
     }
 
+    public int getWebElementSize(WebDriver driver, String locator, String... dynamicValues) {
+        return getListWebElement(driver, getDynamicXpath(locator, dynamicValues)).size();
+    }
+
     public void checkToCheckboxOrRadio(WebDriver driver, String locator) {
         if (!isElementSelected(driver, locator)) {
             getWebElement(driver, locator).click();
