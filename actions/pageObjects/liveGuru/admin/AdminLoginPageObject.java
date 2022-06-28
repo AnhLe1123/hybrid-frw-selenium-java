@@ -2,7 +2,7 @@ package pageObjects.liveGuru.admin;
 
 import commons.BasePage;
 import org.openqa.selenium.WebDriver;
-import pageUIs.liveGuru.admin.AdminLoginPageUI;
+import pageUIs.liveGuru.admin.AdminLoginPageUILiveGuru;
 
 public class AdminLoginPageObject extends BasePage {
     private WebDriver driver;
@@ -12,18 +12,18 @@ public class AdminLoginPageObject extends BasePage {
     }
 
     public void inputToUserNameTextbox(String adminUserName) {
-        waitForElementVisible(driver, AdminLoginPageUI.USERNAME_TEXTBOX);
-        sendkeyToElement(driver, AdminLoginPageUI.USERNAME_TEXTBOX, adminUserName);
+        waitForElementVisible(driver, AdminLoginPageUILiveGuru.USERNAME_TEXTBOX);
+        sendkeyToElement(driver, AdminLoginPageUILiveGuru.USERNAME_TEXTBOX, adminUserName);
     }
 
     public void inputToPasswordTextbox(String adminPassword) {
-        waitForElementVisible(driver, AdminLoginPageUI.PASSWORD_TEXTBOX);
-        sendkeyToElement(driver, AdminLoginPageUI.PASSWORD_TEXTBOX, adminPassword);
+        waitForElementVisible(driver, AdminLoginPageUILiveGuru.PASSWORD_TEXTBOX);
+        sendkeyToElement(driver, AdminLoginPageUILiveGuru.PASSWORD_TEXTBOX, adminPassword);
     }
 
     public AdminManageCustomersPageObject clickToLoginButton() {
-        waitForElementClickable(driver, AdminLoginPageUI.LOGIN_BUTTON);
-        clickToElement(driver, AdminLoginPageUI.LOGIN_BUTTON);
+        waitForElementClickable(driver, AdminLoginPageUILiveGuru.LOGIN_BUTTON);
+        clickToElement(driver, AdminLoginPageUILiveGuru.LOGIN_BUTTON);
         return AdminPageGeneratorManager.getAdminManageCustomersPage(driver);
     }
 }
