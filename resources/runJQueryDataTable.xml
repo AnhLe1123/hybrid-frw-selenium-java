@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<suite name="JQuery" parallele="false">
+<suite name="JQuery DataTable" parallele="false">
     <parameter name="url" value="https://www.jqueryscript.net/demo/CRUD-Data-Grid-Plugin-jQuery-Quickgrid/"/>
     <test name="Run on FIREFOX">
         <parameter name="browser" value="firefox"/>

@@ -9,7 +9,9 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageObjects.nopCommerce.admin.AdminLoginPageObject;
 import pageObjects.nopCommerce.user.*;
-import pageUIs.nopCommerce.admin.AdminBasePageUI;
+import pageUIs.jQuery.uploadFile.BasePageUIJqueryUpload;
+import pageUIs.liveGuru.user.UserBasePageUILiveGuru;
+import pageUIs.nopCommerce.admin.AdminBasePageUINopCommerce;
 import pageUIs.nopCommerce.user.UserBasePageUI;
 
 import java.util.List;
@@ -368,6 +370,17 @@ public class BasePage {
         }
         return isLoaded;
     }
+
+    public boolean isImageLoaded(WebDriver driver, String locator, String... dynamicValues) {
+        locator = getDynamicXpath(locator, dynamicValues);
+        boolean isLoaded = false;
+        jsExecutor = (JavascriptExecutor) driver;
+        boolean status = (boolean) jsExecutor.executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0", getWebElement(driver, locator));
+        if (status) {
+            isLoaded = true;
+        }
+        return isLoaded;
+    }
     
     public void waitForElementVisible(WebDriver driver, String locator) {
         explicitWait = new WebDriverWait(driver, longTimeout);
@@ -491,18 +504,29 @@ public class BasePage {
 
     public AdminLoginPageObject clickAdminLogoutLink(WebDriver driver) {
         isJQueryAjaxLoadedSuccess(driver);
-        waitForElementClickable(driver, AdminBasePageUI.LOGOUT_LINK);
-        clickToElement(driver, AdminBasePageUI.LOGOUT_LINK);
+        waitForElementClickable(driver, AdminBasePageUINopCommerce.LOGOUT_LINK);
+        clickToElement(driver, AdminBasePageUINopCommerce.LOGOUT_LINK);
         return PageGeneratorManager.getAdminLoginPage(driver);
     }
 
     //LiveGuru project
     public void clickToSubLinkByText(WebDriver driver, String linkText, String subLinkText) {
-        waitForElementClickable(driver, pageUIs.liveGuru.user.UserBasePageUI.LINK_AT_HEADER_BY_TEXT, linkText);
-        clickToElement(driver, pageUIs.liveGuru.user.UserBasePageUI.LINK_AT_HEADER_BY_TEXT, linkText);
+        waitForElementClickable(driver, UserBasePageUILiveGuru.LINK_AT_HEADER_BY_TEXT, linkText);
+        clickToElement(driver, UserBasePageUILiveGuru.LINK_AT_HEADER_BY_TEXT, linkText);
 
-        waitForElementClickable(driver, pageUIs.liveGuru.user.UserBasePageUI.SUB_LINK_AT_HEADER_BY_TEXT, subLinkText);
-        clickToElement(driver, pageUIs.liveGuru.user.UserBasePageUI.SUB_LINK_AT_HEADER_BY_TEXT, subLinkText);
+        waitForElementClickable(driver, UserBasePageUILiveGuru.SUB_LINK_AT_HEADER_BY_TEXT, subLinkText);
+        clickToElement(driver, UserBasePageUILiveGuru.SUB_LINK_AT_HEADER_BY_TEXT, subLinkText);
+    }
+
+    //JQuery Upload file
+    public void uploadMultipleFiles(WebDriver driver, String... fileNames) {
+        String projectPath = GlobalConstants.UPLOAD_FILES;
+        String fullFileName = "";
+        for (String file: fileNames) {
+            fullFileName = fullFileName + projectPath + file + "\n";
+        }
+        fullFileName = fullFileName.trim();
+        getWebElement(driver, BasePageUIJqueryUpload.UPLOAD_FILE).sendKeys(fullFileName);
     }
 
     private Select select;
