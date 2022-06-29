@@ -15,6 +15,7 @@ public class GlobalConstants {
 
     public static final String PROJECT_PATH = System.getProperty("user.dir");
     public static final String OS_NAME = System.getProperty("os.name");
+    public static final String JAVA_VERSION = System.getProperty("java.version");
     public static final String UPLOAD_FILES = PROJECT_PATH + File.separator + "uploadFiles" + File.separator;
     public static final String DOWNLOAD_FILES = PROJECT_PATH + File.separator + "downloadFiles";
     public static final String BROWSER_LOG = PROJECT_PATH + File.separator + "browserLogs";
@@ -22,6 +23,7 @@ public class GlobalConstants {
     public static final String REPORTNG_SCREENSHOT = PROJECT_PATH + File.separator + "reportNGScreenshot" + File.separator;
     public static final String EXTENT_REPORT_V3 = PROJECT_PATH + File.separator + "ExtentReportV3" + File.separator;
     public static final String EXTENT_REPORT_V4 = PROJECT_PATH + File.separator + "ExtentReportV4" + File.separator;
+    public static final String EXTENT_REPORT_V5 = PROJECT_PATH + File.separator + "ExtentReportV5" + File.separator;
 
     public static final int LONG_TIMEOUT = 30;
     public static final int SHORT_TIMEOUT = 5;
