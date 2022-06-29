@@ -1,6 +1,8 @@
 package commons;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -10,11 +12,23 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.opera.OperaDriver;
 import org.testng.Assert;
 import org.testng.Reporter;
+import org.testng.annotations.BeforeSuite;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
     private WebDriver driver;
+
+    protected final Log log;
+
+    protected BaseTest() {
+        log = LogFactory.getLog(getClass());
+    }
+
+    public WebDriver getDriver() {
+        return driver;
+    }
 
     protected WebDriver getBrowserDriver(String browserName) {
         if (browserName.equals("firefox")) {
@@ -187,5 +201,24 @@ public class BaseTest {
             Reporter.getCurrentTestResult().setThrowable(e);
         }
         return pass;
+    }
+
+    @BeforeSuite
+    public void deleteAllFilesInReportNGScreenshot() {
+        log.info("---------- START delete file in folder ----------");
+
+        try {
+            String pathFolderReportScreenshot = GlobalConstants.PROJECT_PATH + "/reportNGScreenshot";
+            File file = new File(pathFolderReportScreenshot);
+            File[] listOFiles = file.listFiles();
+            for (int i = 0; i < listOFiles.length; i++) {
+                if (listOFiles[i].isFile()) {
+                    new File(listOFiles[i].toString()).delete();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        log.info("---------- END delete file in folder ----------");
     }
 }

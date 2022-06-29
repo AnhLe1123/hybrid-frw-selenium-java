@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<suite name="NopCommerce" parallele="false">
+<suite name="NopCommerce - Admin" parallele="false">
     <listeners>
         <listener class-name="commons.MethodListener"/>
         <listener class-name="reportConfig.ReportNGListener"/>
@@ -10,7 +10,7 @@
     <test name="Run on FIREFOX">
         <parameter name="browser" value="firefox"/>
         <classes>
-            <class name="com.nopcommerce.user.Level_14_ReportNG_Screenshot"/>
+            <class name="com.nopcommerce.user.Level_14_Log_ReportNG"/>
         </classes>
     </test>
 </suite>
