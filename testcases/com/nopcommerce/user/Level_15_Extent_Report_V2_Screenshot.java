@@ -16,7 +16,7 @@ import pageObjects.nopCommerce.user.UserRegisterPageObject;
 import java.lang.reflect.Method;
 import java.util.Random;
 
-public class Level_15_Extent_Report_V2 extends BaseTest {
+public class Level_15_Extent_Report_V2_Screenshot extends BaseTest {
     private WebDriver driver;
     private UserHomePageObject homePage;
     private UserLoginPageObject loginPage;
