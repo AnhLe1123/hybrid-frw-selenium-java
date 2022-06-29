@@ -21,6 +21,7 @@ public class GlobalConstants {
     public static final String DRAG_AND_DROP_HTML5 = PROJECT_PATH + File.separator + "dragAndDrop";
     public static final String REPORTNG_SCREENSHOT = PROJECT_PATH + File.separator + "reportNGScreenshot" + File.separator;
     public static final String EXTENT_REPORT_V3 = PROJECT_PATH + File.separator + "ExtentReportV3" + File.separator;
+    public static final String EXTENT_REPORT_V4 = PROJECT_PATH + File.separator + "ExtentReportV4" + File.separator;
 
     public static final int LONG_TIMEOUT = 30;
     public static final int SHORT_TIMEOUT = 5;
