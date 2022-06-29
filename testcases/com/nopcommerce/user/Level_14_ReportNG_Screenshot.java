@@ -59,32 +59,32 @@ public class Level_14_ReportNG_Screenshot extends BaseTest {
 
         log.info("Register - Step 08: Verify register success message displayed");
         Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed..");
-
-        log.info("Register - Step 09: Click to Logout link");
-        homePage = registerPage.clickUserLogoutLink(driver);
     }
 
     @Test
     public void User_02_Login() {
-        log.info("Login - Step 01: Open Login page");
+        log.info("Login - Step 01: Click to Logout link");
+        homePage = registerPage.clickUserLogoutLink(driver);
+
+        log.info("Login - Step 02: Open Login page");
         loginPage = homePage.clickToLoginLink();
 
-        log.info("Login - Step 02: Input to Email textbox with value: " + emailAddress);
+        log.info("Login - Step 03: Input to Email textbox with value: " + emailAddress);
         loginPage.inputToEmailTextbox(emailAddress);
 
-        log.info("Login - Step 03: Input to Password textbox with value: " + password);
+        log.info("Login - Step 04: Input to Password textbox with value: " + password);
         loginPage.inputToPasswordTextbox(password);
 
-        log.info("Login - Step 04: Click to Login button");
+        log.info("Login - Step 05: Click to Login button");
         homePage = loginPage.clickToLoginButton();
 
-        log.info("Login - Step 05: Verify My Account link displayed");
+        log.info("Login - Step 06: Verify My Account link displayed");
         Assert.assertTrue(homePage.isMyAccountLinkDisplayed());
 
-        log.info("Login - Step 06: Click to My Account link");
+        log.info("Login - Step 07: Click to My Account link");
         customerInfoPage = homePage.clickToMyAccountLink();
 
-        log.info("Login - Step 07: Verify Customer info page displayed");
+        log.info("Login - Step 08: Verify Customer info page displayed");
         Assert.assertEquals(customerInfoPage.getPageHeader(), "My account - Customer info");
     }
 
