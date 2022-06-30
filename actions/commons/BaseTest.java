@@ -204,12 +204,16 @@ public class BaseTest {
     }
 
     @BeforeSuite
-    public void deleteAllFilesInReportNGScreenshot() {
+    public void initBeforeSuite() {
+        deleteAllFilesInFolder(GlobalConstants.REPORTNG_SCREENSHOT);
+        deleteAllFilesInFolder(GlobalConstants.ALLURE_REPORT);
+    }
+
+    private void deleteAllFilesInFolder(String folderPath) {
         log.info("---------- START delete file in folder ----------");
 
         try {
-            String pathFolderReportScreenshot = GlobalConstants.PROJECT_PATH + "/reportNGScreenshot";
-            File file = new File(pathFolderReportScreenshot);
+            File file = new File(folderPath);
             File[] listOFiles = file.listFiles();
             for (int i = 0; i < listOFiles.length; i++) {
                 if (listOFiles[i].isFile()) {
