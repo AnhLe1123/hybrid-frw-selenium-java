@@ -498,6 +498,17 @@ public class BasePage {
         }
     }
 
+    public Set<Cookie> getAllCookies(WebDriver driver) {
+        return driver.manage().getCookies();
+    }
+
+    public void setCookies(WebDriver driver, Set<Cookie> cookies) {
+        for (Cookie cookie: cookies) {
+            driver.manage().addCookie(cookie);
+        }
+        sleepInSecond(2);
+    }
+
     //Switch page with Page Object pattern
 
     public UserAddressesPageObject openAddressesPage(WebDriver driver) {
