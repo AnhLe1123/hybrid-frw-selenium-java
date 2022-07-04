@@ -407,6 +407,12 @@ public class BasePage {
         return (String) jsExecutor.executeScript("return arguments[0].validationMessage;", getWebElement(driver, locator));
     }
 
+    public String getElementValueByJSXpath(WebDriver driver, String xpathLocator) {
+        jsExecutor = (JavascriptExecutor) driver;
+        xpathLocator = xpathLocator.replace("xpath=", "");
+        return (String) jsExecutor.executeScript(" return $(document.evaluate(\"" + xpathLocator + "\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue).val();");
+    }
+
     public boolean isImageLoaded(WebDriver driver, String locator) {
         boolean isLoaded = false;
         jsExecutor = (JavascriptExecutor) driver;

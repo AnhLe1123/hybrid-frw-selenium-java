@@ -8,9 +8,7 @@ import java.util.Calendar;
 import commons.BaseTest;
 import commons.GlobalConstants;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -41,19 +39,25 @@ public class ReportNGListener extends BaseTest implements ITestListener {
     @Override
     public void onTestFailure(ITestResult result) {
         System.out.println("---------- " + result.getName() + " FAILED test ----------");
-        System.setProperty("org.uncommons.reportng.escape-output", "false");
+        try {
+            System.setProperty("org.uncommons.reportng.escape-output", "false");
 
-        Object testClass = result.getInstance();
-        WebDriver webDriver = ((BaseTest) testClass).getDriver();
+            Object testClass = result.getInstance();
+            WebDriver webDriver = ((BaseTest) testClass).getDriver();
 
-        String screenshotPath = captureScreenshot(webDriver, result.getName());
-        Reporter.getCurrentTestResult();
-        //Screenshot png
-        //Reporter.log("<br><a target=\"_blank\" href=\"file:///" + screenshotPath + "\">" + "<img src=\"file:///" + screenshotPath + "\" " + "height='100' width='150'/> " + "</a></br>");
+            String screenshotPath = captureScreenshot(webDriver, result.getName());
+            Reporter.getCurrentTestResult();
+            //Screenshot png
+            //Reporter.log("<br><a target=\"_blank\" href=\"file:///" + screenshotPath + "\">" + "<img src=\"file:///" + screenshotPath + "\" " + "height='100' width='150'/> " + "</a></br>");
 
-        //Screenshot base64
-        Reporter.log("<br><a href=\"data:image/png;base64," + screenshotPath + "\">" + "<img src=\"data:image/png;base64," + screenshotPath + "\" " + "height='100' width='150'/> " + "</a></br>");
-        Reporter.setCurrentTestResult(null);
+            //Screenshot base64
+            Reporter.log("<br><a href=\"data:image/png;base64," + screenshotPath + "\">" + "<img src=\"data:image/png;base64," + screenshotPath + "\" " + "height='100' width='150'/> " + "</a></br>");
+            Reporter.setCurrentTestResult(null);
+        } catch (NoSuchSessionException e) {
+            e.printStackTrace();
+        } catch (WebDriverException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
