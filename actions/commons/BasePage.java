@@ -12,7 +12,7 @@ import pageObjects.nopCommerce.user.*;
 import pageUIs.jQuery.uploadFile.BasePageUIJqueryUpload;
 import pageUIs.liveGuru.user.UserBasePageUILiveGuru;
 import pageUIs.nopCommerce.admin.AdminBasePageUINopCommerce;
-import pageUIs.nopCommerce.user.UserBasePageUI;
+import pageUIs.nopCommerce.user.UserBasePageUINopCommerce;
 
 import java.util.List;
 import java.util.Set;
@@ -178,6 +178,11 @@ public class BasePage {
         return select.getFirstSelectedOption().getText();
     }
 
+    public String getSelectedItemInDefaultDropdown(WebDriver driver, String locator, String... dynamicValues) {
+        select = new Select(getWebElement(driver, getDynamicXpath(locator, dynamicValues)));
+        return select.getFirstSelectedOption().getText();
+    }
+
     public boolean isDropdownMultiple(WebDriver driver, String locator) {
         select = new Select(getWebElement(driver, locator));
         return select.isMultiple();
@@ -202,6 +207,10 @@ public class BasePage {
 
     public String getAttributeValue(WebDriver driver, String locator, String attributeName) {
         return getWebElement(driver, locator).getAttribute(attributeName);
+    }
+
+    public String getAttributeValue(WebDriver driver, String locator, String attributeName, String... dynamicValues) {
+        return getWebElement(driver, getDynamicXpath(locator, dynamicValues)).getAttribute(attributeName);
     }
 
     public String getWebElementText(WebDriver driver, String locator) {
@@ -235,7 +244,7 @@ public class BasePage {
     }
 
     public void checkToCheckboxOrRadio(WebDriver driver, String locator, String... dynamicValues) {
-        if (!isElementSelected(driver, getDynamicXpath(locator, dynamicValues))) {
+        if (!isElementSelected(driver, locator, dynamicValues)) {
             getWebElement(driver, getDynamicXpath(locator, dynamicValues)).click();
         }
     }
@@ -247,7 +256,7 @@ public class BasePage {
     }
 
     public void uncheckToCheckbox(WebDriver driver, String locator, String... dynamicValues) {
-        if (isElementSelected(driver, getDynamicXpath(locator, dynamicValues))) {
+        if (!isElementSelected(driver, locator, dynamicValues)) {
             getWebElement(driver, getDynamicXpath(locator, dynamicValues)).click();
         }
     }
@@ -307,6 +316,10 @@ public class BasePage {
 
     public boolean isElementSelected(WebDriver driver, String locator) {
         return getWebElement(driver, locator).isSelected();
+    }
+
+    public boolean isElementSelected(WebDriver driver, String locator, String... dynamicValues) {
+        return getWebElement(driver, getDynamicXpath(locator, dynamicValues)).isSelected();
     }
 
     public boolean isElementEnabled(WebDriver driver, String locator) {
@@ -518,34 +531,34 @@ public class BasePage {
     //Switch page with Page Object pattern
 
     public UserAddressesPageObject openAddressesPage(WebDriver driver) {
-        waitForElementClickable(driver, UserBasePageUI.ADDRESSES_SIDEBAR_LINK);
-        clickToElement(driver, UserBasePageUI.ADDRESSES_SIDEBAR_LINK);
+        waitForElementClickable(driver, UserBasePageUINopCommerce.ADDRESSES_SIDEBAR_LINK);
+        clickToElement(driver, UserBasePageUINopCommerce.ADDRESSES_SIDEBAR_LINK);
         return PageGeneratorManager.getUserAddressesPage(driver);
     }
 
     public UserOrdersPageObject openOrdersPage(WebDriver driver) {
-        waitForElementClickable(driver, UserBasePageUI.ORDERS_SIDEBAR_LINK);
-        clickToElement(driver, UserBasePageUI.ORDERS_SIDEBAR_LINK);
+        waitForElementClickable(driver, UserBasePageUINopCommerce.ORDERS_SIDEBAR_LINK);
+        clickToElement(driver, UserBasePageUINopCommerce.ORDERS_SIDEBAR_LINK);
         return PageGeneratorManager.getUserOrdersPage(driver);
     }
 
     public UserRewardPointsPageObject openRewardPointsPage(WebDriver driver) {
-        waitForElementClickable(driver, UserBasePageUI.REWARD_POINTS_SIDEBAR_LINK);
-        clickToElement(driver, UserBasePageUI.REWARD_POINTS_SIDEBAR_LINK);
+        waitForElementClickable(driver, UserBasePageUINopCommerce.REWARD_POINTS_SIDEBAR_LINK);
+        clickToElement(driver, UserBasePageUINopCommerce.REWARD_POINTS_SIDEBAR_LINK);
         return PageGeneratorManager.getUserRewardPointsPage(driver);
     }
 
     public UserCustomerInfoPageObject openCustomerInfoPage(WebDriver driver) {
-        waitForElementClickable(driver, UserBasePageUI.CUSTOMER_INFO_SIDEBAR_LINK);
-        clickToElement(driver, UserBasePageUI.CUSTOMER_INFO_SIDEBAR_LINK);
+        waitForElementClickable(driver, UserBasePageUINopCommerce.CUSTOMER_INFO_SIDEBAR_LINK);
+        clickToElement(driver, UserBasePageUINopCommerce.CUSTOMER_INFO_SIDEBAR_LINK);
         return PageGeneratorManager.getUserCustomerInfoPage(driver);
     }
 
     //Switch page with Dynamic locator (way 1 - few pages)
 
     public BasePage openPageByName(WebDriver driver, String pageName) {
-        waitForElementClickable(driver, UserBasePageUI.SIDEBAR_LINK_BY_PAGE_NAME, pageName);
-        clickToElement(driver, UserBasePageUI.SIDEBAR_LINK_BY_PAGE_NAME, pageName);
+        waitForElementClickable(driver, UserBasePageUINopCommerce.SIDEBAR_LINK_BY_PAGE_NAME, pageName);
+        clickToElement(driver, UserBasePageUINopCommerce.SIDEBAR_LINK_BY_PAGE_NAME, pageName);
         switch (pageName) {
             case "Addresses":
                 return PageGeneratorManager.getUserAddressesPage(driver);
@@ -562,13 +575,13 @@ public class BasePage {
 
     //Switch page with Dynamic locator (way 2 - many pages)
     public void openPageAtSidebarByName(WebDriver driver, String pageName) {
-        waitForElementClickable(driver, UserBasePageUI.SIDEBAR_LINK_BY_PAGE_NAME, pageName);
-        clickToElement(driver, UserBasePageUI.SIDEBAR_LINK_BY_PAGE_NAME, pageName);
+        waitForElementClickable(driver, UserBasePageUINopCommerce.SIDEBAR_LINK_BY_PAGE_NAME, pageName);
+        clickToElement(driver, UserBasePageUINopCommerce.SIDEBAR_LINK_BY_PAGE_NAME, pageName);
     }
 
     public UserHomePageObject clickUserLogoutLink(WebDriver driver) {
-        waitForElementClickable(driver, UserBasePageUI.LOGOUT_LINK);
-        clickToElement(driver, UserBasePageUI.LOGOUT_LINK);
+        waitForElementClickable(driver, UserBasePageUINopCommerce.LOGOUT_LINK);
+        clickToElement(driver, UserBasePageUINopCommerce.LOGOUT_LINK);
         return PageGeneratorManager.getUserHomePage(driver);
     }
 
@@ -597,6 +610,87 @@ public class BasePage {
         }
         fullFileName = fullFileName.trim();
         getWebElement(driver, BasePageUIJqueryUpload.UPLOAD_FILE).sendKeys(fullFileName);
+    }
+
+    //NopCommerce User
+
+    /**
+     * Click to dynamic link at header by partial classname
+     * @param driver
+     * @param partialClassName Example: Full xpath = "//a[@class='ico-register']", then pass 'register' as partialClassName
+     */
+    public void clickToHeaderLinkByClassName(WebDriver driver, String partialClassName) {
+        waitForElementClickable(driver, UserBasePageUINopCommerce.HEADER_LINK_BY_PARTIAL_CLASS_NAME, partialClassName);
+        clickToElement(driver, UserBasePageUINopCommerce.HEADER_LINK_BY_PARTIAL_CLASS_NAME, partialClassName);
+    }
+
+    /**
+     * Check to dynamic checkbox by option text
+     * @param driver
+     * @param optionText
+     */
+    public void checkToCheckboxByOptionText(WebDriver driver, String optionText) {
+        waitForElementClickable(driver, UserBasePageUINopCommerce.CHECKBOX_BY_TEXT_OPTION, optionText);
+        checkToCheckboxOrRadio(driver, UserBasePageUINopCommerce.CHECKBOX_BY_TEXT_OPTION, optionText);
+    }
+
+    /**
+     * Input to dynamic textbox by textboxID
+     * @param driver
+     * @param textboxID
+     * @param value
+     */
+    public void inputToTextboxByID(WebDriver driver, String textboxID, String value) {
+        waitForElementVisible(driver, UserBasePageUINopCommerce.TEXTBOX_BY_ID, textboxID);
+        sendkeyToElement(driver, UserBasePageUINopCommerce.TEXTBOX_BY_ID, value, textboxID);
+    }
+
+    /**
+     * Select text option in default dropdown by dropdownName
+     * @param driver
+     * @param dropdownName
+     * @param optionText
+     */
+    public void selectOptionInDropdownByName(WebDriver driver, String dropdownName, String optionText) {
+        waitForElementClickable(driver, UserBasePageUINopCommerce.DROPDOWN_BY_NAME, dropdownName);
+        selectItemInDefaultDropdown(driver, UserBasePageUINopCommerce.DROPDOWN_BY_NAME, optionText, dropdownName);
+    }
+
+    /**
+     * Click to button by buttonText
+     * @param driver
+     * @param buttonText
+     */
+    public void clickToButtonByText(WebDriver driver, String buttonText) {
+        waitForElementClickable(driver, UserBasePageUINopCommerce.BUTTON_BY_TEXT, buttonText);
+        clickToElement(driver, UserBasePageUINopCommerce.BUTTON_BY_TEXT, buttonText);
+    }
+
+    /**
+     * Check that dynamic checkbox by option text is selected or not
+     * @param driver
+     * @param optionText
+     * @return boolean
+     */
+    public boolean isCheckboxByOptionTextSelected(WebDriver driver, String optionText) {
+        waitForElementVisible(driver, UserBasePageUINopCommerce.CHECKBOX_BY_TEXT_OPTION, optionText);
+        return isElementSelected(driver, UserBasePageUINopCommerce.CHECKBOX_BY_TEXT_OPTION, optionText);
+    }
+
+    /**
+     * Get value of dynamic textbox by textboxId
+     * @param driver
+     * @param textboxID
+     * @return string - value of textbox
+     */
+    public String getTextboxValue(WebDriver driver, String textboxID) {
+        waitForElementVisible(driver, UserBasePageUINopCommerce.TEXTBOX_BY_ID, textboxID);
+        return getAttributeValue(driver, UserBasePageUINopCommerce.TEXTBOX_BY_ID, "value", textboxID);
+    }
+
+    public String getSelectedOptionAtDropdownByName(WebDriver driver, String dropdownName) {
+        waitForElementVisible(driver, UserBasePageUINopCommerce.DROPDOWN_BY_NAME, dropdownName);
+        return getSelectedItemInDefaultDropdown(driver, UserBasePageUINopCommerce.DROPDOWN_BY_NAME, dropdownName);
     }
 
     private Select select;

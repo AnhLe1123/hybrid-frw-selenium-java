@@ -13,7 +13,7 @@
     <test name="Run on FIREFOX">
         <parameter name="browser" value="firefox"/>
         <classes>
-            <class name="com.nopcommerce.user.Level_18_Custom_Close_Driver"/>
+            <class name="com.nopcommerce.user.Level_19_Pattern_Object"/>
         </classes>
     </test>
 </suite>
