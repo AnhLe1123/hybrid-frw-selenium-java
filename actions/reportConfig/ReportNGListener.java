@@ -18,27 +18,22 @@ public class ReportNGListener extends BaseTest implements ITestListener {
 
     @Override
     public void onStart(ITestContext context) {
-        System.out.println("---------- " + context.getName() + " STARTED test ----------");
     }
 
     @Override
     public void onFinish(ITestContext context) {
-        System.out.println("---------- " + context.getName() + " FINISHED test ----------");
     }
 
     @Override
     public void onTestStart(ITestResult result) {
-        System.out.println("---------- " + result.getName() + " STARTED test ----------");
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        System.out.println("---------- " + result.getName() + " SUCCESS test ----------");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        System.out.println("---------- " + result.getName() + " FAILED test ----------");
         try {
             System.setProperty("org.uncommons.reportng.escape-output", "false");
 
@@ -62,12 +57,10 @@ public class ReportNGListener extends BaseTest implements ITestListener {
 
     @Override
     public void onTestSkipped(ITestResult result) {
-        System.out.println("---------- " + result.getName() + " SKIPPED test ----------");
     }
 
     @Override
     public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
-        System.out.println("---------- " + result.getName() + " FAILED WITH SUCCESS PERCENTAGE test ----------");
     }
 
 //    public String captureScreenshot(WebDriver driver, String screenshotName) {
@@ -85,7 +78,6 @@ public class ReportNGListener extends BaseTest implements ITestListener {
 //    }
 
     public String captureScreenshot(WebDriver driver, String screenshotName) {
-        String screenshotBase64 = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64);
-        return screenshotBase64;
+        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64);
     }
 }

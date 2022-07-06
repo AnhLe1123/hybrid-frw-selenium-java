@@ -163,6 +163,12 @@ public class BasePage {
         element.sendKeys(textValue);
     }
 
+    public void clearValueInElementByPressKey(WebDriver driver, String locator) {
+        WebElement element = getWebElement(driver, locator);
+        element.sendKeys(Keys.chord(Keys.COMMAND, "a", Keys.DELETE));
+
+    }
+
     public void selectItemInDefaultDropdown(WebDriver driver, String locator, String textItem) {
         select = new Select(getWebElement(driver, locator));
         select.selectByVisibleText(textItem);
@@ -279,7 +285,7 @@ public class BasePage {
         }
     }
 
-    private void overrideGlobalTimeout(WebDriver driver, long timeout) {
+    public void overrideGlobalTimeout(WebDriver driver, long timeout) {
         driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
     }
 

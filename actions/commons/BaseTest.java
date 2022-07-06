@@ -3,6 +3,7 @@ package commons;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.joda.time.DateTime;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -16,6 +17,7 @@ import org.testng.annotations.BeforeSuite;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
@@ -92,11 +94,15 @@ public class BaseTest {
     protected WebDriver getBrowserDriver(String browserName, String pageUrl) {
         if (browserName.equals("firefox")) {
             WebDriverManager.firefoxdriver().setup();
-            driver = new FirefoxDriver();
+            FirefoxOptions options = new FirefoxOptions();
+            options.setAcceptInsecureCerts(true);
+            driver = new FirefoxDriver(options);
 
         } else if (browserName.equals("chrome")) {
             WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver();
+            ChromeOptions options = new ChromeOptions();
+            options.setAcceptInsecureCerts(true);
+            driver = new ChromeDriver(options);
 
         } else if (browserName.equals("edge")) {
             WebDriverManager.edgedriver().setup();
@@ -211,8 +217,6 @@ public class BaseTest {
     }
 
     private void deleteAllFilesInFolder(String folderPath) {
-        log.info("---------- START delete file in folder ----------");
-
         try {
             File file = new File(folderPath);
             File[] listOFiles = file.listFiles();
@@ -224,7 +228,6 @@ public class BaseTest {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        log.info("---------- END delete file in folder ----------");
     }
 
     protected void closeBrowserAndDriver() {
@@ -286,5 +289,37 @@ public class BaseTest {
                 e.printStackTrace();
             }
         }
+    }
+
+    public int generateNumber() {
+        Random rand = new Random();
+        return rand.nextInt(9999);
+    }
+
+    protected String getCurrentDay() {
+        DateTime nowUTC = new DateTime();
+        int day = nowUTC.getDayOfMonth();
+        if (day < 10) {
+            return "0" + day;
+        }
+        return String.valueOf(day);
+    }
+
+    protected String getCurrentMonth() {
+        DateTime now = new DateTime();
+        int month = now.getMonthOfYear();
+        if (month < 10) {
+            return "0" + month;
+        }
+        return String.valueOf(month);
+    }
+
+    protected String getCurrentYear() {
+        DateTime now = new DateTime();
+        return String.valueOf(now.getYear());
+    }
+
+    protected String getToday() {
+        return getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear();
     }
 }
