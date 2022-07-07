@@ -10,6 +10,9 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.logging.LogEntries;
+import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.opera.OperaDriver;
 import org.testng.Assert;
 import org.testng.Reporter;
@@ -17,7 +20,7 @@ import org.testng.annotations.BeforeSuite;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
@@ -36,11 +39,70 @@ public class BaseTest {
     protected WebDriver getBrowserDriver(String browserName) {
         if (browserName.equals("firefox")) {
             WebDriverManager.firefoxdriver().setup();
-            driver = new FirefoxDriver();
+
+            //Disable browser log in Console
+            System.setProperty(FirefoxDriver.SystemProperty.DRIVER_USE_MARIONETTE, "true");
+            System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, GlobalConstants.BROWSER_LOG + "/FirefoxLog.log");
+
+            FirefoxOptions options = new FirefoxOptions();
+            //Install plugin for Firefox
+            FirefoxProfile profile = new FirefoxProfile();
+            File addBlocker = new File(GlobalConstants.BROWSER_EXTENSION + "/adblocker_ultimate-3.7.15.xpi");
+            profile.addExtension(addBlocker);
+            options.setProfile(profile);
+
+            //Disable SSL
+            options.setAcceptInsecureCerts(true);
+            //Auto download
+            options.addPreference("browser.download.folderList", 2);
+            options.addPreference("browser.download.dir", GlobalConstants.DOWNLOAD_FILES);
+            options.addPreference("browser.download.useDownloadDir", true);
+            options.addPreference("browser.helperApps.neverAsk.saveToDisk", "multipart/x-zip,application/zip,application/x-zip-compressed,application/x-compressed" +
+                    "application/msword,application/csv,text/csv,image/png,image/jpeg,application/pdf,text/html,text/plain,application/excel,application/vnd.ms-excel" +
+                    "application/x-excel,application/x-msexcel,application/octet-stream");
+            options.addPreference("pdfjs.disabled", true);
+            //Browser in private mode
+            options.addArguments("-private");
+
+            driver = new FirefoxDriver(options);
 
         } else if (browserName.equals("chrome")) {
             WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver();
+
+            //Disable browser log in Console
+            System.setProperty("webdriver.chrome.args", "--disable-logging");
+            System.setProperty("webdriver.chrome.silentOutput", "true");
+
+            ChromeOptions options = new ChromeOptions();
+            //install plugin for Chrome
+            File file = new File(GlobalConstants.BROWSER_EXTENSION + "/adblock_4_41_0.crx");
+            options.addExtensions(file);
+
+            //Disable SSL
+            options.setAcceptInsecureCerts(true);
+            //Disable developer mode
+            options.addArguments("--disable-infobars");
+            //Disable notification popup
+            options.addArguments("--disable-notifications");
+            //Disable location popup
+            options.addArguments("--disable-geolocation");
+            //browser incognito mode
+            options.addArguments("--incognito");
+
+            Map<String, Object> prefs = new HashMap<String, Object>();
+            //Save password in Chrome
+            prefs.put("credentials_enable_service", false);
+            prefs.put("profile.password_manager_enabled", false);
+            //Auto download
+            prefs.put("profile.default_content_settings.popup", 0);
+            prefs.put("download.default_directory", GlobalConstants.DOWNLOAD_FILES);
+
+            options.setExperimentalOption("prefs", prefs);
+            //Disable automation info bar
+            options.setExperimentalOption("useAutomationExtension", false);
+            options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
+
+            driver = new ChromeDriver(options);
 
         } else if (browserName.equals("edge")) {
             WebDriverManager.edgedriver().setup();
@@ -94,14 +156,69 @@ public class BaseTest {
     protected WebDriver getBrowserDriver(String browserName, String pageUrl) {
         if (browserName.equals("firefox")) {
             WebDriverManager.firefoxdriver().setup();
+
+            //Disable browser log in Console
+            System.setProperty(FirefoxDriver.SystemProperty.DRIVER_USE_MARIONETTE, "true");
+            System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, GlobalConstants.BROWSER_LOG + "/FirefoxLog.log");
+
             FirefoxOptions options = new FirefoxOptions();
+            //Install plugin for Firefox
+            FirefoxProfile profile = new FirefoxProfile();
+            File addBlocker = new File(GlobalConstants.BROWSER_EXTENSION + "/adblocker_ultimate-3.7.15.xpi");
+            profile.addExtension(addBlocker);
+            options.setProfile(profile);
+
+            //Disable SSL
             options.setAcceptInsecureCerts(true);
+            //Auto download
+            options.addPreference("browser.download.folderList", 2);
+            options.addPreference("browser.download.dir", GlobalConstants.DOWNLOAD_FILES);
+            options.addPreference("browser.download.useDownloadDir", true);
+            options.addPreference("browser.helperApps.neverAsk.saveToDisk", "multipart/x-zip,application/zip,application/x-zip-compressed,application/x-compressed" +
+                    "application/msword,application/csv,text/csv,image/png,image/jpeg,application/pdf,text/html,text/plain,application/excel,application/vnd.ms-excel" +
+                    "application/x-excel,application/x-msexcel,application/octet-stream");
+            options.addPreference("pdfjs.disabled", true);
+            //Browser in private mode
+            options.addArguments("-private");
+
             driver = new FirefoxDriver(options);
 
         } else if (browserName.equals("chrome")) {
             WebDriverManager.chromedriver().setup();
+
+            //Disable browser log in Console
+            System.setProperty("webdriver.chrome.args", "--disable-logging");
+            System.setProperty("webdriver.chrome.silentOutput", "true");
+
             ChromeOptions options = new ChromeOptions();
+            //install plugin for Chrome
+            File file = new File(GlobalConstants.BROWSER_EXTENSION + "/adblock_4_41_0.crx");
+            options.addExtensions(file);
+
+            //Disable SSL
             options.setAcceptInsecureCerts(true);
+            //Disable developer mode
+            options.addArguments("--disable-infobars");
+            //Disable notification popup
+            options.addArguments("--disable-notifications");
+            //Disable location popup
+            options.addArguments("--disable-geolocation");
+            //browser incognito mode
+            options.addArguments("--incognito");
+
+            Map<String, Object> prefs = new HashMap<String, Object>();
+            //Save password in Chrome
+            prefs.put("credentials_enable_service", false);
+            prefs.put("profile.password_manager_enabled", false);
+            //Auto download
+            prefs.put("profile.default_content_settings.popup", 0);
+            prefs.put("download.default_directory", GlobalConstants.DOWNLOAD_FILES);
+
+            options.setExperimentalOption("prefs", prefs);
+            //Disable automation info bar
+            options.setExperimentalOption("useAutomationExtension", false);
+            options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
+
             driver = new ChromeDriver(options);
 
         } else if (browserName.equals("edge")) {
@@ -321,5 +438,15 @@ public class BaseTest {
 
     protected String getToday() {
         return getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear();
+    }
+
+    protected void showBrowserConsoleLogs(WebDriver driver) {
+        if (driver.toString().contains("chrome")) {
+            LogEntries logs = driver.manage().logs().get("browser");
+            List<LogEntry> logList = logs.getAll();
+            for (LogEntry logging: logList) {
+                log.info("------------" + logging.getLevel().toString() + "------------\n" + logging.getMessage());
+            }
+        }
     }
 }

@@ -19,6 +19,7 @@ public class GlobalConstants {
     public static final String UPLOAD_FILES = PROJECT_PATH + File.separator + "uploadFiles" + File.separator;
     public static final String DOWNLOAD_FILES = PROJECT_PATH + File.separator + "downloadFiles";
     public static final String BROWSER_LOG = PROJECT_PATH + File.separator + "browserLogs";
+    public static final String BROWSER_EXTENSION = PROJECT_PATH + File.separator + "browserExtensions";
     public static final String DRAG_AND_DROP_HTML5 = PROJECT_PATH + File.separator + "dragAndDrop";
     public static final String REPORTNG_SCREENSHOT = PROJECT_PATH + File.separator + "reportNGScreenshot";
     public static final String ALLURE_REPORT = PROJECT_PATH + File.separator + "allure-results";
