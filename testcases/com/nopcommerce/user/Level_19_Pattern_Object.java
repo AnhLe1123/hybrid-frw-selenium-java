@@ -12,8 +12,6 @@ import pageObjects.nopCommerce.user.UserHomePageObject;
 import pageObjects.nopCommerce.user.UserLoginPageObject;
 import pageObjects.nopCommerce.user.UserRegisterPageObject;
 
-import java.util.Random;
-
 public class Level_19_Pattern_Object extends BaseTest {
     private WebDriver driver;
     private UserHomePageObject homePage;
@@ -135,10 +133,5 @@ public class Level_19_Pattern_Object extends BaseTest {
     @AfterClass
     public void afterClass() {
         closeBrowserAndDriver();
-    }
-
-    public int generateNumber() {
-        Random rand = new Random();
-        return rand.nextInt(9999);
     }
 }
