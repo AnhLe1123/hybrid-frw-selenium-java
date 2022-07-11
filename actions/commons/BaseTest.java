@@ -11,9 +11,11 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.opera.OperaDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeSuite;
@@ -37,7 +39,9 @@ public class BaseTest {
     }
 
     protected WebDriver getBrowserDriver(String browserName) {
-        if (browserName.equals("firefox")) {
+        BrowserList browser = BrowserList.valueOf(browserName.toUpperCase());
+
+        if (browser == BrowserList.FIREFOX) {
             WebDriverManager.firefoxdriver().setup();
 
             //Disable browser log in Console
@@ -66,7 +70,7 @@ public class BaseTest {
 
             driver = new FirefoxDriver(options);
 
-        } else if (browserName.equals("chrome")) {
+        } else if (browser == BrowserList.CHROME) {
             WebDriverManager.chromedriver().setup();
 
             //Disable browser log in Console
@@ -104,23 +108,23 @@ public class BaseTest {
 
             driver = new ChromeDriver(options);
 
-        } else if (browserName.equals("edge")) {
+        } else if (browser == BrowserList.EDGE) {
             WebDriverManager.edgedriver().setup();
             driver = new EdgeDriver();
 
-        } else if (browserName.equals("opera")) {
+        } else if (browser == BrowserList.OPERA) {
             WebDriverManager.operadriver().setup();
             driver = new OperaDriver();
 
-        } else if (browserName.equals("brave")) {
-            WebDriverManager.chromedriver().setup();
+        } else if (browser == BrowserList.BRAVE) {
+            WebDriverManager.chromedriver().driverVersion("102.0.5005.61").setup();
             ChromeOptions options = new ChromeOptions();
             if (GlobalConstants.OS_NAME.contains("Mac")) {
                 options.setBinary("/Applications/Brave Browser.app/Contents/MacOS/Brave Browser");
             }
             driver = new ChromeDriver(options);
 
-        } else if (browserName.equals("CocCoc")) {
+        } else if (browser == BrowserList.COCCOC) {
             WebDriverManager.chromedriver().driverVersion("101.0.4951.15").setup();
             ChromeOptions options = new ChromeOptions();
             if (GlobalConstants.OS_NAME.contains("Mac")) {
@@ -128,19 +132,26 @@ public class BaseTest {
             }
             driver = new ChromeDriver(options);
 
-        } else if (browserName.equals("h_chrome")) {
+        } else if (browser == BrowserList.H_CHROME) {
             WebDriverManager.chromedriver().setup();
             ChromeOptions options = new ChromeOptions();
             options.setHeadless(true);
             options.addArguments("window-size=1920x1080");
             driver = new ChromeDriver(options);
 
-        } else if (browserName.equals("h_firefox")) {
+        } else if (browser == BrowserList.H_FIREFOX) {
             WebDriverManager.firefoxdriver().setup();
             FirefoxOptions options = new FirefoxOptions();
             options.setHeadless(true);
             options.addArguments("window-size=1920x1080");
             driver = new FirefoxDriver(options);
+
+        } else if (browser == BrowserList.SAFARI) {
+            driver = new SafariDriver();
+
+        } else if (browser == BrowserList.IE) {
+            WebDriverManager.iedriver().arch32().setup();
+            driver = new InternetExplorerDriver();
 
         } else {
             throw new RuntimeException("Invalid browser driver");
@@ -154,7 +165,9 @@ public class BaseTest {
     }
 
     protected WebDriver getBrowserDriver(String browserName, String pageUrl) {
-        if (browserName.equals("firefox")) {
+        BrowserList browser = BrowserList.valueOf(browserName.toUpperCase());
+
+        if (browser == BrowserList.FIREFOX) {
             WebDriverManager.firefoxdriver().setup();
 
             //Disable browser log in Console
@@ -183,7 +196,7 @@ public class BaseTest {
 
             driver = new FirefoxDriver(options);
 
-        } else if (browserName.equals("chrome")) {
+        } else if (browser == BrowserList.CHROME) {
             WebDriverManager.chromedriver().setup();
 
             //Disable browser log in Console
@@ -221,23 +234,23 @@ public class BaseTest {
 
             driver = new ChromeDriver(options);
 
-        } else if (browserName.equals("edge")) {
+        } else if (browser == BrowserList.EDGE) {
             WebDriverManager.edgedriver().setup();
             driver = new EdgeDriver();
 
-        } else if (browserName.equals("opera")) {
+        } else if (browser == BrowserList.OPERA) {
             WebDriverManager.operadriver().setup();
             driver = new OperaDriver();
 
-        } else if (browserName.equals("brave")) {
-            WebDriverManager.chromedriver().setup();
+        } else if (browser == BrowserList.BRAVE) {
+            WebDriverManager.chromedriver().driverVersion("102.0.5005.61").setup();
             ChromeOptions options = new ChromeOptions();
             if (GlobalConstants.OS_NAME.contains("Mac")) {
                 options.setBinary("/Applications/Brave Browser.app/Contents/MacOS/Brave Browser");
             }
             driver = new ChromeDriver(options);
 
-        } else if (browserName.equals("CocCoc")) {
+        } else if (browser == BrowserList.COCCOC) {
             WebDriverManager.chromedriver().driverVersion("101.0.4951.15").setup();
             ChromeOptions options = new ChromeOptions();
             if (GlobalConstants.OS_NAME.contains("Mac")) {
@@ -245,19 +258,26 @@ public class BaseTest {
             }
             driver = new ChromeDriver(options);
 
-        } else if (browserName.equals("h_chrome")) {
+        } else if (browser == BrowserList.H_CHROME) {
             WebDriverManager.chromedriver().setup();
             ChromeOptions options = new ChromeOptions();
             options.setHeadless(true);
             options.addArguments("window-size=1920x1080");
             driver = new ChromeDriver(options);
 
-        } else if (browserName.equals("h_firefox")) {
+        } else if (browser == BrowserList.H_FIREFOX) {
             WebDriverManager.firefoxdriver().setup();
             FirefoxOptions options = new FirefoxOptions();
             options.setHeadless(true);
             options.addArguments("window-size=1920x1080");
             driver = new FirefoxDriver(options);
+
+        } else if (browser == BrowserList.SAFARI) {
+            driver = new SafariDriver();
+
+        } else if (browser == BrowserList.IE) {
+            WebDriverManager.iedriver().arch32().setup();
+            driver = new InternetExplorerDriver();
 
         } else {
             throw new RuntimeException("Invalid browser driver");
@@ -350,7 +370,7 @@ public class BaseTest {
     protected void closeBrowserAndDriver() {
         String cmd = "";
         try {
-            String osName = System.getProperty("os.name").toLowerCase();
+            String osName = GlobalConstants.OS_NAME.toLowerCase();
             log.info("OS name = " + osName);
 
             String driverInstanceName = driver.toString().toLowerCase();
