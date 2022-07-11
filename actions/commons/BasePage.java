@@ -144,11 +144,20 @@ public class BasePage {
     }
 
     public void clickToElement(WebDriver driver, String locator) {
-        getWebElement(driver, locator).click();
+        if (driver.toString().toLowerCase().contains("internet explorer")) {
+            clickToElementByJS(driver, locator);
+            sleepInSecond(3);
+        } else {
+            getWebElement(driver, locator).click();
+        }
     }
 
     public void clickToElement(WebDriver driver, String locator, String... dynamicValues) {
-        getWebElement(driver, getDynamicXpath(locator, dynamicValues)).click();
+        if (driver.toString().toLowerCase().contains("internet explorer")) {
+            clickToElementByJS(driver, locator, dynamicValues);
+        } else {
+            getWebElement(driver, getDynamicXpath(locator, dynamicValues)).click();
+        }
     }
 
     public void sendkeyToElement(WebDriver driver, String locator, String textValue) {
@@ -372,6 +381,11 @@ public class BasePage {
     public void clickToElementByJS(WebDriver driver, String locator) {
         jsExecutor = (JavascriptExecutor) driver;
         jsExecutor.executeScript("arguments[0].click();", getWebElement(driver, locator));
+    }
+
+    public void clickToElementByJS(WebDriver driver, String locator, String... dynamicValues) {
+        jsExecutor = (JavascriptExecutor) driver;
+        jsExecutor.executeScript("arguments[0].click();", getWebElement(driver, getDynamicXpath(locator, dynamicValues)));
     }
 
     public void scrollToElement(WebDriver driver, String locator) {

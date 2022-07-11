@@ -134,7 +134,7 @@ public class Level_19_Pattern_Object extends BaseTest {
 
     @AfterClass
     public void afterClass() {
-        driver.quit();
+        closeBrowserAndDriver();
     }
 
     public int generateNumber() {
