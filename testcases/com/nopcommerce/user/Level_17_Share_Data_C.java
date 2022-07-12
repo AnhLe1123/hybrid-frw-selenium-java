@@ -57,7 +57,7 @@ public class Level_17_Share_Data_C extends BaseTest {
         driver.quit();
     }
 
-    public int generateNumber() {
+    public long generateRandomNumber() {
         Random rand = new Random();
         return rand.nextInt(9999);
     }

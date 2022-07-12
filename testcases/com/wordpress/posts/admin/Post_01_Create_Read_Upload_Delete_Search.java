@@ -30,7 +30,7 @@ public class Post_01_Create_Read_Upload_Delete_Search extends BaseTest {
 
         adminUserName = "automationfc";
         adminPassword = "automationfc";
-        int postNumber = generateNumber();
+        long postNumber = generateRandomNumber();
         postTitle = "Live coding title no." + postNumber;
         postBody = "Live coding body no." + postNumber;
         authorNickname = "automationfc";

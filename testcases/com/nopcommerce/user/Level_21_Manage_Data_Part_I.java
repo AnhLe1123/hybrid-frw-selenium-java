@@ -11,25 +11,28 @@ import pageObjects.nopCommerce.user.UserCustomerInfoPageObject;
 import pageObjects.nopCommerce.user.UserHomePageObject;
 import pageObjects.nopCommerce.user.UserLoginPageObject;
 import pageObjects.nopCommerce.user.UserRegisterPageObject;
+import utilities.DataHelper;
 
-public class Level_19_Pattern_Object extends BaseTest {
+public class Level_21_Manage_Data_Part_I extends BaseTest {
     private WebDriver driver;
+    private DataHelper fakeData;
     private UserHomePageObject homePage;
     private UserLoginPageObject loginPage;
     private UserRegisterPageObject registerPage;
     private UserCustomerInfoPageObject customerInfoPage;
     private String firstName, lastName, emailAddress, password, gender, birthDay, birthMonth, birthYear, companyName;
 
-    @Parameters("browser")
+    @Parameters({"browser", "url"})
     @BeforeClass
-    public void beforeClass(String browserName) {
-        driver = getBrowserDriver(browserName);
+    public void beforeClass(String browserName, String pageUrl) {
+        driver = getBrowserDriver(browserName, pageUrl);
         homePage = PageGeneratorManager.getUserHomePage(driver);
-        firstName = "Automation";
-        lastName = "Testing";
-        emailAddress = "autotest" + generateRandomNumber() + "@mail.com";
-        companyName = "Automation QA";
-        password = "123456";
+        fakeData = DataHelper.getData();
+        firstName = fakeData.getFirstName();
+        lastName = fakeData.getLastName();
+        emailAddress = fakeData.getEmailAddress();
+        companyName = fakeData.getCompanyName();
+        password = fakeData.getPassword();
         gender = "Male";
         birthDay = "25";
         birthMonth = "September";

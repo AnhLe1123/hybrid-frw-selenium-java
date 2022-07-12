@@ -11,8 +11,9 @@ import pageObjects.nopCommerce.user.UserCustomerInfoPageObject;
 import pageObjects.nopCommerce.user.UserHomePageObject;
 import pageObjects.nopCommerce.user.UserLoginPageObject;
 import pageObjects.nopCommerce.user.UserRegisterPageObject;
+import utilities.DataHelper;
 
-public class Level_19_Pattern_Object extends BaseTest {
+public class Level_21_Manage_Data_Part_II extends BaseTest {
     private WebDriver driver;
     private UserHomePageObject homePage;
     private UserLoginPageObject loginPage;
@@ -20,20 +21,22 @@ public class Level_19_Pattern_Object extends BaseTest {
     private UserCustomerInfoPageObject customerInfoPage;
     private String firstName, lastName, emailAddress, password, gender, birthDay, birthMonth, birthYear, companyName;
 
-    @Parameters("browser")
+    @Parameters({"browser", "url", "firstName", "lastName", "emailAddress", "companyName", "password",
+            "gender", "birthDay", "birthMonth", "birthYear"})
     @BeforeClass
-    public void beforeClass(String browserName) {
-        driver = getBrowserDriver(browserName);
+    public void beforeClass(String browserName, String pageUrl, String firstName, String lastName, String emailAddress, String companyName,
+                            String password, String gender, String birthDay, String birthMonth, String birthYear) {
+        driver = getBrowserDriver(browserName, pageUrl);
         homePage = PageGeneratorManager.getUserHomePage(driver);
-        firstName = "Automation";
-        lastName = "Testing";
-        emailAddress = "autotest" + generateRandomNumber() + "@mail.com";
-        companyName = "Automation QA";
-        password = "123456";
-        gender = "Male";
-        birthDay = "25";
-        birthMonth = "September";
-        birthYear = "1992";
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress + generateRandomNumber() + "@mail.com";
+        this.companyName = companyName;
+        this.password = password;
+        this.gender = gender;
+        this.birthDay = birthDay;
+        this.birthMonth = birthMonth;
+        this.birthYear = birthYear;
     }
 
     @Test

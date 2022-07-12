@@ -30,7 +30,7 @@ public class Level_09_Dynamic_Locator extends BaseTest {
         homePage = PageGeneratorManager.getUserHomePage(driver);
         firstName = "Automation";
         lastName = "Testing";
-        emailAddress = "autotest" + generateNumber() + "@mail.com";
+        emailAddress = "autotest" + generateRandomNumber() + "@mail.com";
         password = "123456";
     }
 
@@ -111,7 +111,7 @@ public class Level_09_Dynamic_Locator extends BaseTest {
         driver.quit();
     }
 
-    public int generateNumber() {
+    public long generateRandomNumber() {
         Random rand = new Random();
         return rand.nextInt(9999);
     }

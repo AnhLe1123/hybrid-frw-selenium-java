@@ -50,10 +50,10 @@ public class BaseTest {
 
             FirefoxOptions options = new FirefoxOptions();
             //Install plugin for Firefox
-            FirefoxProfile profile = new FirefoxProfile();
-            File addBlocker = new File(GlobalConstants.BROWSER_EXTENSION + "/adblocker_ultimate-3.7.15.xpi");
-            profile.addExtension(addBlocker);
-            options.setProfile(profile);
+            //FirefoxProfile profile = new FirefoxProfile();
+            //File addBlocker = new File(GlobalConstants.BROWSER_EXTENSION + "/adblocker_ultimate-3.7.15.xpi");
+            //profile.addExtension(addBlocker);
+            //options.setProfile(profile);
 
             //Disable SSL
             options.setAcceptInsecureCerts(true);
@@ -66,7 +66,7 @@ public class BaseTest {
                     "application/x-excel,application/x-msexcel,application/octet-stream");
             options.addPreference("pdfjs.disabled", true);
             //Browser in private mode
-            options.addArguments("-private");
+            //options.addArguments("-private");
 
             driver = new FirefoxDriver(options);
 
@@ -79,8 +79,8 @@ public class BaseTest {
 
             ChromeOptions options = new ChromeOptions();
             //install plugin for Chrome
-            File file = new File(GlobalConstants.BROWSER_EXTENSION + "/adblock_4_41_0.crx");
-            options.addExtensions(file);
+            //File file = new File(GlobalConstants.BROWSER_EXTENSION + "/adblock_4_41_0.crx");
+            //options.addExtensions(file);
 
             //Disable SSL
             options.setAcceptInsecureCerts(true);
@@ -176,10 +176,10 @@ public class BaseTest {
 
             FirefoxOptions options = new FirefoxOptions();
             //Install plugin for Firefox
-            FirefoxProfile profile = new FirefoxProfile();
-            File addBlocker = new File(GlobalConstants.BROWSER_EXTENSION + "/adblocker_ultimate-3.7.15.xpi");
-            profile.addExtension(addBlocker);
-            options.setProfile(profile);
+            //FirefoxProfile profile = new FirefoxProfile();
+            //File addBlocker = new File(GlobalConstants.BROWSER_EXTENSION + "/adblocker_ultimate-3.7.15.xpi");
+            //profile.addExtension(addBlocker);
+            //options.setProfile(profile);
 
             //Disable SSL
             options.setAcceptInsecureCerts(true);
@@ -192,7 +192,7 @@ public class BaseTest {
                     "application/x-excel,application/x-msexcel,application/octet-stream");
             options.addPreference("pdfjs.disabled", true);
             //Browser in private mode
-            options.addArguments("-private");
+            //options.addArguments("-private");
 
             driver = new FirefoxDriver(options);
 
@@ -205,8 +205,8 @@ public class BaseTest {
 
             ChromeOptions options = new ChromeOptions();
             //install plugin for Chrome
-            File file = new File(GlobalConstants.BROWSER_EXTENSION + "/adblock_4_41_0.crx");
-            options.addExtensions(file);
+            //File file = new File(GlobalConstants.BROWSER_EXTENSION + "/adblock_4_41_0.crx");
+            //options.addExtensions(file);
 
             //Disable SSL
             options.setAcceptInsecureCerts(true);
@@ -428,9 +428,8 @@ public class BaseTest {
         }
     }
 
-    public int generateNumber() {
-        Random rand = new Random();
-        return rand.nextInt(9999);
+    public long generateRandomNumber() {
+        return Calendar.getInstance().getTimeInMillis() % 100000;
     }
 
     protected String getCurrentDay() {
