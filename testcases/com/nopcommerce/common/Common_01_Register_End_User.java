@@ -23,7 +23,7 @@ public class Common_01_Register_End_User extends BaseTest {
         homePage = PageGeneratorManager.getUserHomePage(driver);
         firstName = "Automation";
         lastName = "Testing";
-        emailAddress = "autotest" + generateNumber() + "@mail.com";
+        emailAddress = "autotest" + generateRandomNumber() + "@mail.com";
         password = "123456";
 
         log.info("Pre-condition - Step 01: Open Register page");
@@ -56,7 +56,7 @@ public class Common_01_Register_End_User extends BaseTest {
         driver.quit();
     }
 
-    public int generateNumber() {
+    public long generateRandomNumber() {
         Random rand = new Random();
         return rand.nextInt(9999);
     }

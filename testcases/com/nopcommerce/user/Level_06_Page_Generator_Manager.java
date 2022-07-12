@@ -29,8 +29,8 @@ public class Level_06_Page_Generator_Manager extends BaseTest {
         firstName = "Automation";
         lastName = "Testing";
         invalidEmail = "abc@";
-        existingEmail = "autotest" + generateNumber() + "@mail.com";
-        notFoundEmail = "autotest" + generateNumber() + "@mail.net";
+        existingEmail = "autotest" + generateRandomNumber() + "@mail.com";
+        notFoundEmail = "autotest" + generateRandomNumber() + "@mail.net";
         validPassword = "123456";
         invalidPassword = "123";
 
@@ -166,7 +166,7 @@ public class Level_06_Page_Generator_Manager extends BaseTest {
         driver.quit();
     }
 
-    public int generateNumber() {
+    public long generateRandomNumber() {
         Random rand = new Random();
         return rand.nextInt(9999);
     }

@@ -13,7 +13,6 @@ import pageObjects.nopCommerce.user.UserHomePageObject;
 import pageObjects.nopCommerce.user.UserLoginPageObject;
 import pageObjects.nopCommerce.user.UserRegisterPageObject;
 
-import java.lang.reflect.Method;
 import java.util.Random;
 
 public class Level_15_Extent_Report_V3_Screenshot extends BaseTest {

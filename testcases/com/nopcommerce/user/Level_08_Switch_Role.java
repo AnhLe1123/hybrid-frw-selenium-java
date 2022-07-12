@@ -34,7 +34,7 @@ public class Level_08_Switch_Role extends BaseTest {
         driver = getBrowserDriver(browserName, environmentName);
         firstName = "Automation";
         lastName = "Testing";
-        userEmail = "autotest" + generateNumber() + "@mail.com";
+        userEmail = "autotest" + generateRandomNumber() + "@mail.com";
         userPassword = "123456";
         adminEmail = "admin@yourstore.com";
         adminPassword = "admin";
@@ -88,7 +88,7 @@ public class Level_08_Switch_Role extends BaseTest {
         driver.quit();
     }
 
-    public int generateNumber() {
+    public long generateRandomNumber() {
         Random rand = new Random();
         return rand.nextInt(9999);
     }
